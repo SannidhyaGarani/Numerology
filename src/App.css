@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #8A2BE2; /* Bright Purple Button */
+  --color-secondary: #E1BA48; /* Premium Gold */
+  --color-accent: #6720C5; /* Neon Purple */
+  --color-dark: #050614; /* Main Dark Background */
+  --color-dark-navy: #130A2C; /* Secondary Dark Navy */
+  --color-card: #190A3B; /* Card Background */
+  --color-deep-purple: #280F4F;
+  --color-border-purple: #6720C5;
+  
+  --font-display: "Montserrat", sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-number: "Orbitron", sans-serif;
+
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px rgba(103, 32, 197, 0.2), 0 0 20px rgba(103, 32, 197, 0.1);
+    }
+    to {
+      box-shadow: 0 0 20px rgba(103, 32, 197, 0.4), 0 0 40px rgba(103, 32, 197, 0.2);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-dark text-[#F9F8FA] font-body;
+    background: linear-gradient(135deg, #130A2C 0%, #050614 100%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+  
+  .glass-premium {
+    @apply bg-[#190A3B]/40 backdrop-blur-xl border border-[#6720C5]/30;
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728];
+  }
+
+  .text-gradient-purple {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#6720C5] to-[#8A2BE2];
+  }
+
+  .btn-purple {
+    @apply bg-gradient-to-r from-[#6720C5] to-[#8A2BE2] text-white transition-all duration-300 shadow-lg shadow-accent/20;
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(103, 32, 197, 0.45);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(225, 186, 72, 0.45);
+  }
+
+  .border-neon {
+    @apply border border-[#6720C5] shadow-[0_0_10px_rgba(103,32,197,0.3)];
+  }
+}
