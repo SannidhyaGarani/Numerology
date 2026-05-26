@@ -36,15 +36,14 @@ const Header = () => {
 
   return (
     <>
-      <header 
-        className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 border-b ${
-          isScrolled 
-            ? 'bg-dark/90 backdrop-blur-xl py-4 border-white/5 shadow-2xl shadow-primary/10' 
+      <header
+        className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 border-b ${isScrolled
+            ? 'bg-dark/90 backdrop-blur-xl py-4 border-white/5 shadow-2xl shadow-primary/10'
             : 'bg-transparent py-6 lg:py-8 border-transparent'
-        }`}
+          }`}
       >
         <div className="max-w-[1440px] mx-auto px-6 flex items-center justify-between">
-          
+
           {/* --- LEFT: Logo --- */}
           <Link to="/" className="relative z-[110] flex items-center gap-3 group">
             <div className="relative w-10 h-10 overflow-hidden rounded-xl bg-gradient-to-tr from-primary to-accent border border-white/10 flex items-center justify-center">
@@ -78,37 +77,13 @@ const Header = () => {
           {/* --- RIGHT: Actions --- */}
           <div className="flex items-center gap-2 md:gap-6 relative z-[110]">
             <div className="flex items-center gap-1 md:gap-3">
-              <div className="relative flex items-center">
-                <AnimatePresence>
-                  {isSearchOpen && (
-                    <motion.form 
-                      initial={{ width: 0, opacity: 0 }}
-                      animate={{ width: 180, opacity: 1 }}
-                      exit={{ width: 0, opacity: 0 }}
-                      onSubmit={handleSearchSubmit}
-                      className="absolute right-10 flex items-center bg-white/5 border border-white/10 rounded-full pr-1 overflow-hidden"
-                    >
-                      <input 
-                        autoFocus
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search VIP Numbers..."
-                        className="w-full bg-transparent border-none py-2 px-4 text-[10px] text-white outline-none focus:ring-0 font-light tracking-wider"
-                      />
-                      <button type="submit" className="bg-secondary/20 hover:bg-secondary/40 text-secondary p-1.5 rounded-full transition-all">
-                        <ArrowRight size={12} strokeWidth={2} />
-                      </button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
-                <button 
-                  onClick={() => setIsSearchOpen(!isSearchOpen)}
-                  className={`p-2 rounded-full transition-all ${isSearchOpen ? 'text-secondary bg-white/5' : 'text-white/60 hover:text-secondary hover:bg-white/5'}`}
-                >
-                  {isSearchOpen ? <X size={20} strokeWidth={1.5} /> : <Search size={20} strokeWidth={1.5} />}
-                </button>
-              </div>
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2 rounded-full text-white/60 hover:text-secondary hover:bg-white/5 transition-all outline-none"
+              >
+                <Search size={20} strokeWidth={1.5} />
+              </button>
+
               <Link to="/account" className="p-2 rounded-full text-white/60 hover:text-secondary hover:bg-white/5 transition-all">
                 <User size={20} strokeWidth={1.5} />
               </Link>
@@ -121,7 +96,7 @@ const Header = () => {
               <Sparkles size={14} />
             </button>
 
-            <button 
+            <button
               className="lg:hidden w-10 h-10 rounded-xl bg-white/5 text-white flex items-center justify-center"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -132,24 +107,31 @@ const Header = () => {
       </header>
 
       {/* --- MOBILE MENU OVERLAY --- */}
-      <div 
-        className={`fixed inset-0 bg-dark z-[100] transition-all duration-500 lg:hidden flex flex-col pt-32 pb-10 px-8 space-y-8 ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+      <div
+        className={`fixed inset-0 bg-dark z-[100] transition-all duration-500 lg:hidden flex flex-col pt-32 pb-10 px-8 space-y-8 ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
       >
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -mr-64 -mt-64" />
-        
+
+        {/* Mobile Close Button */}
+        <button
+          className="absolute top-8 right-8 w-12 h-12 rounded-2xl bg-white/5 text-white flex items-center justify-center border border-white/10"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <X size={28} />
+        </button>
+
         {navLinks.map((link) => (
           <Link
             key={link.name}
             to={link.to}
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-4xl font-bold text-white hover:text-secondary transition-colors"
+            className="text-2xl font-light uppercase tracking-[0.3em] text-white hover:text-secondary transition-all"
           >
             {link.name}
           </Link>
         ))}
-        
+
         <div className="pt-8 space-y-6">
           <button className="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-accent text-white font-bold uppercase tracking-widest shadow-xl">
             Find Lucky Number
@@ -159,6 +141,106 @@ const Header = () => {
           </div>
         </div>
       </div>
+      {/* --- SEARCH OVERLAY --- */}
+      <AnimatePresence>
+        {isSearchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-xl flex items-start justify-center px-4 pt-24"
+          >
+            {/* Glow */}
+            <div className="absolute top-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px]" />
+
+            {/* Compact Search Box */}
+            <motion.div
+              initial={{ y: 30, opacity: 0, scale: 0.96 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 20, opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.35 }}
+              className="relative w-full max-w-2xl"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setIsSearchOpen(false)}
+                className="absolute -top-14 right-0 w-10 h-10 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center"
+              >
+                <X size={18} />
+              </button>
+
+              {/* Card */}
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
+
+                {/* Header */}
+                <div className="px-6 pt-6 pb-4 text-center">
+                  <p className="text-[10px] uppercase tracking-[0.4em] text-secondary font-semibold mb-2">
+                    Aura Search
+                  </p>
+
+                  <h2 className="text-2xl md:text-4xl font-light text-white tracking-tight">
+                    Discover Your{" "}
+                    <span className="text-gradient-gold">Frequency</span>
+                  </h2>
+                </div>
+
+                {/* Search */}
+                <form
+                  onSubmit={handleSearchSubmit}
+                  className="px-5 pb-5"
+                >
+                  <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 focus-within:border-secondary/50 transition-all">
+
+                    <Search
+                      className="text-white/30"
+                      size={20}
+                      strokeWidth={1.5}
+                    />
+
+                    <input
+                      autoFocus
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search numbers..."
+                      className="flex-1 bg-transparent text-white placeholder:text-white/25 outline-none text-base md:text-lg tracking-wide"
+                    />
+
+                    <button
+                      type="submit"
+                      className="px-5 py-3 rounded-xl bg-white text-black text-[10px] uppercase tracking-[0.25em] font-bold hover:bg-secondary transition-all"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </form>
+
+                {/* Trending */}
+                <div className="px-6 pb-6 flex flex-wrap items-center gap-3">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">
+                    Trending
+                  </span>
+
+                  {["786", "9999", "0007", "1111"].map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => {
+                        setSearchQuery(tag);
+                        navigate(`/shop?search=${tag}`);
+                        setIsSearchOpen(false);
+                        setSearchQuery("");
+                      }}
+                      className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm hover:bg-secondary hover:text-black transition-all"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
