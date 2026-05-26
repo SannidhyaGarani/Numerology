@@ -29,50 +29,50 @@ const BlueprintReport = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/30 text-secondary text-[10px] font-black uppercase tracking-[0.3em] mb-8"
+              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass border-white/5 text-secondary text-[10px] font-light uppercase tracking-[0.4em] mb-10"
             >
-              <Sparkles size={14} fill="currentColor" />
-              <span>Personalized Destiny Guide</span>
+              <Sparkles size={12} className="opacity-50" />
+              <span>Celestial Blueprinting</span>
             </motion.div>
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight max-w-4xl"
+              className="text-4xl md:text-6xl lg:text-7xl font-light text-white mb-8 leading-none max-w-5xl tracking-tight"
             >
-              Unlock Your Complete <br />
-              <span className="text-gradient-gold uppercase">Numerology Report</span>
+              Decode Your <br />
+              <span className="text-gradient-gold block mt-2">DESTINY ARCHIVE</span>
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[#CAC0A9]/70 text-base md:text-lg max-w-2xl mb-12 font-body leading-relaxed"
+              className="text-white/30 text-lg max-w-2xl mb-16 font-light leading-relaxed tracking-wide"
             >
-              Get a comprehensive 40-page analysis of your life path, soul urge, and destiny numbers. Discover the hidden vibrations that shape your future.
+              A meticulous 40-page analysis of your existence. Uncover the fundamental frequencies that architecture your timeline.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center gap-6"
+              className="flex flex-col sm:flex-row items-center gap-8"
             >
-              <button className="btn-purple px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center gap-3 shadow-2xl shadow-accent/40 group/btn">
-                <FileText size={18} />
-                Generate My Report
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              <button className="bg-white text-dark px-10 py-5 rounded-2xl font-light uppercase tracking-[0.3em] text-[10px] shadow-2xl transition-all duration-700 hover:bg-secondary hover:text-dark flex items-center justify-center gap-3">
+                <FileText size={16} strokeWidth={1} />
+                Generate Archive
+                <ArrowRight size={14} strokeWidth={1} />
               </button>
               
-              <div className="flex items-center gap-4 px-6 py-4 rounded-2xl glass border-white/5">
-                <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
-                  <Download size={20} />
+              <div className="flex items-center gap-5 px-8 py-5 rounded-2xl glass border-white/5 transition-all duration-700 hover:border-white/20">
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-secondary">
+                  <Download size={18} strokeWidth={1} />
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-[#CAC0A9]/60">PDF Sample</p>
-                  <p className="text-xs font-bold text-white">View Sample Report</p>
+                  <p className="text-[9px] font-light uppercase tracking-[0.4em] text-white/20">Preview Instance</p>
+                  <p className="text-xs font-light text-white tracking-widest">Sample Data</p>
                 </div>
               </div>
             </motion.div>

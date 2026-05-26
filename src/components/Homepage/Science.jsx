@@ -7,19 +7,19 @@ const AnalysisCard = ({ title, value, desc, index, isVisible }) => (
     initial={{ opacity: 0, x: 30 }}
     animate={isVisible ? { opacity: 1, x: 0 } : {}}
     transition={{ duration: 0.8, delay: index * 0.2 }}
-    className="group relative glass p-6 rounded-3xl border-white/5 hover:border-primary/30 transition-all duration-500"
+    className="group relative glass p-8 rounded-[2.5rem] border-white/5 hover:border-primary/20 transition-all duration-700"
   >
-    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-    <div className="relative z-10 flex items-start gap-4">
-      <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-        <Star size={20} fill="currentColor" />
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[2.5rem]" />
+    <div className="relative z-10 flex items-start gap-6">
+      <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-primary group-hover:scale-105 transition-transform duration-500">
+        <Star size={20} strokeWidth={1} />
       </div>
-      <div>
-        <div className="flex items-baseline gap-2 mb-1">
-          <h4 className="text-lg font-bold">{title}</h4>
-          <span className="text-secondary font-black text-xs">{value}</span>
+      <div className="flex-1">
+        <div className="flex items-center justify-between mb-2">
+          <h4 className="text-xl font-light tracking-wide text-white/90">{title}</h4>
+          <span className="text-secondary font-light text-xs tracking-[0.2em]">{value}</span>
         </div>
-        <p className="text-white/40 text-sm leading-relaxed">{desc}</p>
+        <p className="text-white/30 text-sm leading-relaxed font-light tracking-wide">{desc}</p>
       </div>
     </div>
   </motion.div>
@@ -110,22 +110,22 @@ const ScienceSection = () => {
               transition={{ duration: 0.8 }}
               className="space-y-6"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-secondary/20 text-secondary text-sm font-bold uppercase tracking-widest">
-                <Sparkles size={16} />
-                Handcrafted Personal Analysis
+              <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass border-white/5 text-secondary text-[10px] font-light uppercase tracking-[0.4em]">
+                <Sparkles size={12} className="opacity-50" />
+                Celestial Resonance Analysis
               </div>
               
-              <h2 className="text-4xl md:text-6xl font-bold leading-tight">
-                Handcrafted Personal <br />
-                <span className="text-gradient-gold">NUMBER BLUEPRINT</span>
+              <h2 className="text-5xl md:text-6xl font-light leading-none tracking-tight">
+                Your Cosmic <br />
+                <span className="text-gradient-gold block mt-2">VIBRATION</span>
               </h2>
               
-              <p className="text-lg text-white/60 leading-relaxed">
-                Our expert numerologists manually analyze your vibrations to create a unique, personalized blueprint of your life’s energy. Discover the hidden power of your numbers.
+              <p className="text-lg text-white/40 leading-relaxed font-light">
+                Our master numerologists decode the celestial frequencies woven into your existence. A precision-crafted map of your energy signature.
               </p>
             </motion.div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {analysisData.map((item, i) => (
                 <AnalysisCard key={i} index={i} isVisible={isVisible} {...item} />
               ))}
@@ -135,15 +135,15 @@ const ScienceSection = () => {
               initial={{ opacity: 0 }}
               animate={isVisible ? { opacity: 1 } : {}}
               transition={{ duration: 1, delay: 1 }}
-              className="flex items-center gap-6 pt-4"
+              className="flex items-center gap-10 pt-8"
             >
-              <button className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-primary/20 flex items-center gap-2">
-                Get Your Report Now
-                <ArrowRight size={20} />
+              <button className="bg-white text-dark px-10 py-5 rounded-2xl font-light uppercase tracking-[0.2em] text-[10px] transition-all duration-500 hover:bg-secondary hover:text-dark shadow-xl hover:shadow-secondary/10 flex items-center gap-3">
+                Reveal Blueprint
+                <ArrowRight size={14} strokeWidth={1.5} />
               </button>
               <div className="flex flex-col">
-                <span className="text-secondary font-black text-xl">₹ 499</span>
-                <span className="text-white/40 text-xs uppercase tracking-widest">Starting From</span>
+                <span className="text-secondary font-light text-2xl tracking-widest">₹ 499</span>
+                <span className="text-white/20 text-[9px] uppercase tracking-[0.3em] mt-1">Starting From</span>
               </div>
             </motion.div>
           </div>

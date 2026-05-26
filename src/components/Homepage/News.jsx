@@ -14,39 +14,39 @@ const Newsletter = () => {
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/sacred-geometry.png')] opacity-5 pointer-events-none" />
           
           <div className="relative z-10 space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary text-[10px] font-black uppercase tracking-widest">
-              <Sparkles size={16} fill="currentColor" />
-              Elite Insider Circle
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass border-white/5 text-secondary text-[10px] font-light uppercase tracking-[0.4em]">
+              <Sparkles size={12} className="opacity-50" />
+              Elite Vanguard Circle
             </div>
             
-            <h2 className="text-4xl md:text-6xl font-bold leading-tight font-display text-[#F9F8FA]">
-              Get Notified for <br />
-              <span className="text-gradient-gold uppercase tracking-tighter">NEW VIP NUMBERS</span>
+            <h2 className="text-5xl md:text-7xl font-light leading-none font-display text-white tracking-tight">
+              Archival <br />
+              <span className="text-gradient-gold block mt-2">RELEASES</span>
             </h2>
             
-            <p className="text-[#CAC0A9]/60 text-lg max-w-2xl mx-auto leading-relaxed font-body">
-              Join our exclusive list to get early access to newly released VIP numbers, special discounts, and numerology insights.
+            <p className="text-white/30 text-lg max-w-2xl mx-auto leading-relaxed font-light tracking-wide">
+              Secure priority access to newly recovered numerical assets and deep celestial periodicities.
             </p>
 
-            <form className="max-w-md mx-auto relative group mt-10" onSubmit={(e) => e.preventDefault()}>
-              <div className="absolute -inset-1 bg-gradient-to-r from-accent to-primary rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <div className="relative flex items-center bg-dark border border-white/10 rounded-2xl p-1 shadow-inner">
-                <div className="pl-5 text-[#CAC0A9]/40">
-                  <Mail size={22} />
+            <form className="max-w-md mx-auto relative group mt-12" onSubmit={(e) => e.preventDefault()}>
+              <div className="absolute -inset-1 bg-gradient-to-r from-accent/50 to-primary/50 rounded-2xl blur-lg opacity-0 group-focus-within:opacity-20 transition duration-1000"></div>
+              <div className="relative flex items-center bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-2xl p-2 shadow-2xl overflow-hidden transition-all duration-700">
+                <div className="pl-4 text-white/20">
+                  <Mail size={18} strokeWidth={1} />
                 </div>
                 <input
                   type="email"
-                  placeholder="Enter your email address"
-                  className="w-full bg-transparent border-none focus:ring-0 text-[#F9F8FA] px-4 py-3 placeholder:text-[#CAC0A9]/20 font-body text-sm"
+                  placeholder="acquisition@insider.com"
+                  className="w-full bg-transparent border-none focus:ring-0 text-white px-4 py-4 placeholder:text-white/10 font-light text-sm tracking-widest"
                 />
-                <button className="btn-purple p-3.5 rounded-xl font-bold transition-all duration-300 shadow-lg active:scale-95">
-                  <Send size={18} />
+                <button className="bg-white text-dark p-4 rounded-xl font-light transition-all duration-700 shadow-2xl hover:bg-secondary hover:text-dark">
+                  <Send size={16} strokeWidth={1.5} />
                 </button>
               </div>
             </form>
             
-            <p className="text-[#CAC0A9]/20 text-[10px] uppercase tracking-widest font-black">
-              No Spam. Only Premium Updates. Unsubscribe anytime.
+            <p className="text-white/10 text-[9px] uppercase tracking-[0.4em] font-light pt-4">
+              Discrete Updates. Zero Noise. Eternal Privilege.
             </p>
           </div>
         </div>

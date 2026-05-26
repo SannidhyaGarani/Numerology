@@ -8,21 +8,21 @@ const StepCard = ({ icon: Icon, step, title, desc, index }) => (
     whileInView={{ opacity: 1, x: 0 }}
     transition={{ duration: 0.8, delay: index * 0.2 }}
     viewport={{ once: true }}
-    className="relative flex flex-col items-center text-center space-y-4 group"
+    className="relative flex flex-col items-center text-center space-y-6 group"
   >
     <div className="relative">
-      <div className="w-24 h-24 rounded-[2rem] bg-[#130A2C] border border-[#6720C5]/30 flex items-center justify-center text-accent group-hover:scale-110 transition-transform relative z-10 shadow-2xl">
-        <Icon size={40} />
+      <div className="w-28 h-28 rounded-[2.5rem] bg-white/[0.03] border border-white/5 flex items-center justify-center text-secondary group-hover:scale-105 transition-all duration-700 relative z-10 shadow-2xl backdrop-blur-3xl">
+        <Icon size={32} strokeWidth={1} />
       </div>
-      <div className="absolute -top-2 -right-2 w-10 h-10 rounded-full bg-secondary text-dark text-sm font-black flex items-center justify-center z-20 border-4 border-dark font-display">
+      <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white text-dark text-[10px] font-light flex items-center justify-center z-20 border border-white/5 font-display tracking-widest">
         {step}
       </div>
-      <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="absolute inset-0 bg-accent/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
     </div>
     
-    <div className="space-y-2 max-w-[280px]">
-      <h3 className="text-xl font-bold font-display text-[#F9F8FA] group-hover:text-secondary transition-colors">{title}</h3>
-      <p className="text-[#CAC0A9]/60 text-sm leading-relaxed font-body">{desc}</p>
+    <div className="space-y-3 max-w-[280px]">
+      <h3 className="text-xl font-light font-display text-white tracking-wide group-hover:text-secondary transition-colors duration-700">{title}</h3>
+      <p className="text-white/30 text-xs leading-relaxed font-light tracking-wide">{desc}</p>
     </div>
 
     {index < 3 && (
@@ -58,28 +58,28 @@ const BrandTrust = () => {
       {/* Background Decorative Line */}
       <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-accent/20 to-transparent hidden lg:block" />
 
-      <div className="max-w-[1440px] mx-auto px-6 relative z-10">
-        <div className="text-center mb-20 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full glass border-accent/20 text-accent text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-            <Sparkles size={12} fill="currentColor" />
-            Simple 3-Step Process
+      <div className="max-w-[1440px] mx-auto px-8 relative z-10">
+        <div className="text-center mb-24 space-y-6">
+          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass border-white/5 text-secondary text-[10px] font-light uppercase tracking-[0.4em]">
+            <Sparkles size={12} className="opacity-50" />
+            Seamless Orchestration
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold font-display text-[#F9F8FA]">
-            How It <span className="text-gradient-gold uppercase tracking-tighter">WORKS</span>
+          <h2 className="text-5xl md:text-6xl font-light font-display text-white tracking-tight leading-none">
+            The Process <span className="text-gradient-gold block mt-2">DYNAMICS</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 max-w-6xl mx-auto">
           {steps.map((step, index) => (
             <StepCard key={index} index={index} {...step} />
           ))}
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-20 text-center">
-          <button className="inline-flex items-center gap-3 text-[#CAC0A9]/60 hover:text-secondary transition-all font-black uppercase tracking-widest text-xs group">
-            Still have questions? Chat with our Numerology Expert
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+        <div className="mt-24 text-center">
+          <button className="inline-flex items-center gap-4 text-white/20 hover:text-white transition-all duration-700 font-light uppercase tracking-[0.3em] text-[10px] group border-b border-white/5 pb-2">
+            Inquire for Consultation
+            <ArrowRight size={14} strokeWidth={1} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>

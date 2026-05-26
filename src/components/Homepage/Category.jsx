@@ -8,13 +8,13 @@ const FeatureCard = ({ icon: Icon, title, desc, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
     viewport={{ once: true }}
-    className="group p-8 rounded-[2.5rem] bg-[#130A2C] border border-[#6720C5]/20 hover:border-secondary/50 transition-all duration-500 shadow-xl"
+    className="group p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:border-secondary/20 transition-all duration-700 shadow-2xl backdrop-blur-3xl"
   >
-    <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 group-hover:bg-secondary group-hover:text-dark transition-all duration-500">
-      <Icon size={32} />
+    <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-secondary mb-8 group-hover:scale-105 group-hover:bg-white group-hover:text-dark transition-all duration-700">
+      <Icon size={28} strokeWidth={1} />
     </div>
-    <h3 className="text-xl font-bold mb-3 font-display text-[#F9F8FA] group-hover:text-secondary transition-colors">{title}</h3>
-    <p className="text-[#CAC0A9]/60 text-sm leading-relaxed font-body">{desc}</p>
+    <h3 className="text-xl font-light mb-4 font-display text-white tracking-wide group-hover:text-secondary transition-colors duration-700">{title}</h3>
+    <p className="text-white/30 text-sm leading-relaxed font-light tracking-wide">{desc}</p>
   </motion.div>
 );
 
@@ -40,13 +40,13 @@ const CategorySection = () => {
   return (
     <section className="py-20 relative overflow-hidden bg-dark-surface">
       <div className="max-w-[1440px] mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full glass border-secondary/20 text-secondary text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-            <Sparkles size={12} fill="currentColor" />
-            Trust & Security
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass border-white/5 text-secondary text-[10px] font-light uppercase tracking-[0.4em]">
+            <Sparkles size={12} className="opacity-50" />
+            Integrity & Precision
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold font-display text-[#F9F8FA]">
-            Our <span className="text-gradient-gold uppercase tracking-tighter">PREMIUM SERVICE</span> Guarantees
+          <h2 className="text-5xl md:text-6xl font-light font-display text-white tracking-tight leading-none">
+            The <span className="text-gradient-gold block mt-2">PREMIUM STANDARD</span>
           </h2>
         </div>
 

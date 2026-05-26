@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Homepage/Home";
 import Admin from "./pages/Admin/Admin";
-import SuperAdmin from "./pages/SuperAdmin/SuperAdmin";
+
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import AuthProvider from "./components/AuthProvider";
 import Login from "./components/Login";
@@ -23,8 +23,7 @@ import Preloader from "./pages/Preloader";
 const AppRoutes = () => {
   const location = useLocation();
   const hideChrome =
-    location.pathname.startsWith("/admin") ||
-    location.pathname.startsWith("/super");
+    location.pathname.startsWith("/admin");
 
   return (
     <>
@@ -33,7 +32,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/super" element={<SuperAdmin />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />

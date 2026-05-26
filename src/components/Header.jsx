@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Menu, X, Phone, User, Search, Heart, ArrowRight, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +17,15 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
 
   const navLinks = [
     { name: 'Home', to: '/' },
@@ -65,12 +78,37 @@ const Header = () => {
           {/* --- RIGHT: Actions --- */}
           <div className="flex items-center gap-2 md:gap-6 relative z-[110]">
             <div className="flex items-center gap-1 md:gap-3">
-              <button className="p-2 rounded-full text-white/60 hover:text-secondary hover:bg-white/5 transition-all">
-                <Search size={20} strokeWidth={1.5} />
-              </button>
-              <Link to="/wishlist" className="p-2 rounded-full text-white/60 hover:text-secondary hover:bg-white/5 transition-all">
-                <Heart size={20} strokeWidth={1.5} />
-              </Link>
+              <div className="relative flex items-center">
+                <AnimatePresence>
+                  {isSearchOpen && (
+                    <motion.form 
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: 180, opacity: 1 }}
+                      exit={{ width: 0, opacity: 0 }}
+                      onSubmit={handleSearchSubmit}
+                      className="absolute right-10 flex items-center bg-white/5 border border-white/10 rounded-full pr-1 overflow-hidden"
+                    >
+                      <input 
+                        autoFocus
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search VIP Numbers..."
+                        className="w-full bg-transparent border-none py-2 px-4 text-[10px] text-white outline-none focus:ring-0 font-light tracking-wider"
+                      />
+                      <button type="submit" className="bg-secondary/20 hover:bg-secondary/40 text-secondary p-1.5 rounded-full transition-all">
+                        <ArrowRight size={12} strokeWidth={2} />
+                      </button>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
+                <button 
+                  onClick={() => setIsSearchOpen(!isSearchOpen)}
+                  className={`p-2 rounded-full transition-all ${isSearchOpen ? 'text-secondary bg-white/5' : 'text-white/60 hover:text-secondary hover:bg-white/5'}`}
+                >
+                  {isSearchOpen ? <X size={20} strokeWidth={1.5} /> : <Search size={20} strokeWidth={1.5} />}
+                </button>
+              </div>
               <Link to="/account" className="p-2 rounded-full text-white/60 hover:text-secondary hover:bg-white/5 transition-all">
                 <User size={20} strokeWidth={1.5} />
               </Link>
@@ -117,8 +155,7 @@ const Header = () => {
             Find Lucky Number
           </button>
           <div className="flex gap-4">
-            <Link to="/account" className="flex-1 py-4 rounded-xl glass border-white/5 text-center text-white/60 font-bold text-sm">Account</Link>
-            <Link to="/wishlist" className="flex-1 py-4 rounded-xl glass border-white/5 text-center text-white/60 font-bold text-sm">Wishlist</Link>
+            <Link to="/account" onClick={() => setIsMobileMenuOpen(false)} className="w-full py-4 rounded-xl glass border-white/5 text-center text-white/60 font-bold text-sm">Account</Link>
           </div>
         </div>
       </div>
