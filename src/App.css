@@ -10,9 +10,10 @@
   --color-deep-purple: #280F4F;
   --color-border-purple: #6720C5;
   
-  --font-display: "Montserrat", sans-serif;
+  --font-sans: "Poppins", sans-serif;
+  --font-display: "Poppins", sans-serif;
   --font-body: "Poppins", sans-serif;
-  --font-number: "Orbitron", sans-serif;
+  --font-number: "Poppins", sans-serif;
 
   --animate-glow: glow 2s ease-in-out infinite alternate;
   --animate-float: float 6s ease-in-out infinite;
@@ -34,7 +35,8 @@
 
 @layer base {
   body {
-    @apply bg-dark text-[#F9F8FA] font-body;
+    @apply bg-dark text-white antialiased;
+    font-family: 'Poppins', sans-serif !important;
     background: linear-gradient(135deg, #130A2C 0%, #050614 100%);
     background-attachment: fixed;
   }
