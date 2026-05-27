@@ -1,7 +1,6 @@
 
 import Hero from './Hero'
 import BrandTrust from './About'
-import CategorySection from './Category'
 import PromoBanner from './Banner'
 import ScienceSection from './Science'
 import BlueprintReport from './BlueprintReport'
@@ -16,14 +15,12 @@ function Home() {
     <>
     
      <Hero/>
-     <BrandTrust/>
-     <CategorySection/>
      <ProductGrid/>
-     <PromoBanner/>
      <ScienceSection/>
      <BlueprintReport />
-     <TestimonialSection/>
-     <Newsletter/>
+     {/* <TestimonialSection/> */}
+     <BrandTrust/>
+     <PromoBanner/>
     </>
   )
 }

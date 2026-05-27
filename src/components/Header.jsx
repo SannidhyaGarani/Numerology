@@ -38,8 +38,8 @@ const Header = () => {
     <>
       <header
         className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 border-b ${isScrolled
-            ? 'bg-dark/90 backdrop-blur-xl py-4 border-white/5 shadow-2xl shadow-primary/10'
-            : 'bg-transparent py-6 lg:py-8 border-transparent'
+          ? 'bg-dark/90 backdrop-blur-xl py-4 border-white/5 shadow-2xl shadow-primary/10'
+          : 'bg-transparent py-6 lg:py-8 border-transparent'
           }`}
       >
         <div className="max-w-[1440px] mx-auto px-6 flex items-center justify-between">
@@ -54,7 +54,7 @@ const Header = () => {
               <span className="text-xl font-black tracking-tighter leading-none text-white">
                 VIP<span className="text-secondary">NUMBERS</span>
               </span>
-              <span className="text-[9px] uppercase tracking-[0.4em] font-medium text-white/40">
+              <span className="text-[9px] uppercase tracking-[0.4em] font-medium text-white">
                 Premium Marketplace
               </span>
             </div>
@@ -91,7 +91,10 @@ const Header = () => {
 
             <div className="hidden lg:block w-[1px] h-6 bg-white/10" />
 
-            <button className="hidden lg:flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-bold text-[11px] uppercase tracking-widest transition-all hover:scale-105 shadow-lg shadow-primary/20">
+            <button 
+              onClick={() => navigate('/shop')}
+              className="hidden lg:flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white font-bold text-[11px] uppercase tracking-widest transition-all hover:scale-105 shadow-lg shadow-primary/20"
+            >
               <span>Find Lucky Number</span>
               <Sparkles size={14} />
             </button>
@@ -133,7 +136,10 @@ const Header = () => {
         ))}
 
         <div className="pt-8 space-y-6">
-          <button className="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-accent text-white font-bold uppercase tracking-widest shadow-xl">
+          <button 
+            onClick={() => { navigate('/shop'); setIsMobileMenuOpen(false); }}
+            className="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-accent text-white font-bold uppercase tracking-widest shadow-xl"
+          >
             Find Lucky Number
           </button>
           <div className="flex gap-4">
@@ -192,7 +198,7 @@ const Header = () => {
                   <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 focus-within:border-secondary/50 transition-all">
 
                     <Search
-                      className="text-white/30"
+                      className="text-white"
                       size={20}
                       strokeWidth={1.5}
                     />
@@ -217,7 +223,7 @@ const Header = () => {
 
                 {/* Trending */}
                 <div className="px-6 pb-6 flex flex-wrap items-center gap-3">
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-white">
                     Trending
                   </span>
 

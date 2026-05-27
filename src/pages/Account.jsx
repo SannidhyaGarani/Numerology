@@ -3,16 +3,16 @@ import { useAuth } from "../components/useAuth";
 import { db } from "../components/Firebase";
 import { doc, getDoc, collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
-import { 
-  User, 
-  Package, 
-  Heart, 
-  LogOut, 
-  ChevronRight, 
-  Settings, 
-  ShoppingBag, 
-  CreditCard, 
-  MapPin, 
+import {
+  User,
+  Package,
+  Heart,
+  LogOut,
+  ChevronRight,
+  Settings,
+  ShoppingBag,
+  CreditCard,
+  MapPin,
   Bell,
   Award
 } from "lucide-react";
@@ -40,15 +40,15 @@ const Account = () => {
           setUserData(userSnap.data());
         }
 
-        // Fetch Cart Count
+        // Fetch Cart & Wishlist Counts
         const cartSnap = await getDocs(collection(db, "users", user.uid, "cart"));
         const wishlistSnap = await getDocs(collection(db, "users", user.uid, "wishlist"));
-        
+
         // Fetch Recent Orders
         const ordersRef = collection(db, "users", user.uid, "orders");
         const ordersQuery = query(ordersRef, orderBy("createdAt", "desc"), limit(3));
         const ordersSnap = await getDocs(ordersQuery);
-        
+
         setRecentOrders(ordersSnap.docs.map(d => ({ id: d.id, ...d.data() })));
         setStats({
           cart: cartSnap.size,
@@ -75,144 +75,157 @@ const Account = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#C6A664]"></div>
+      <div className="min-h-screen bg-[#03030A] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#F4C95D]/20 border-t-[#F4C95D]" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#050614] pt-32 pb-20 px-6 relative overflow-hidden">
-      {/* Background Ambience */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
-      </div>
+    <div className="min-h-screen bg-[#03030A] text-white pt-36 md:pt-44 pb-24 px-6 relative overflow-hidden select-none">
+      {/* Background Sacred Geometric Matrix */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-center bg-no-repeat bg-cover" 
+        style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/sacred-geometry.png')` }} 
+      />
+      <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-purple-950/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-900/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto relative z-10">
-        
-        {/* Profile Header Card */}
-        <div className="bg-[#130A2C] rounded-[48px] p-8 md:p-16 mb-12 relative overflow-hidden border border-white/5 shadow-2xl">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
-          
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="relative group">
-                <div className="w-32 h-32 rounded-[40px] bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white overflow-hidden shadow-2xl">
+      <div className="max-w-[1340px] mx-auto relative z-10 w-full">
+
+        {/* PROFILE PROFILE HEADER CARD FRAME */}
+        <div className="bg-[#0B061A]/90 backdrop-blur-xl rounded-2xl p-6 md:p-10 mb-8 relative overflow-hidden border border-gray-800/80 shadow-2xl">
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-900/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              
+              {/* Avatar Frame Container */}
+              <div className="relative shrink-0">
+                <div className="w-24 h-24 rounded-xl bg-[#120C24] border border-gray-800 flex items-center justify-center text-white overflow-hidden shadow-xl">
                   {userData?.photoURL ? (
                     <img src={userData.photoURL} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <User size={56} className="text-white/20" />
+                    <User size={36} className="text-gray-500" />
                   )}
                 </div>
-                <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-secondary rounded-2xl flex items-center justify-center text-dark border-4 border-[#130A2C] shadow-lg">
-                  <Award size={18} />
+                <div className="absolute -bottom-1.5 -right-1.5 w-7 h-7 bg-[#120C24] rounded-lg flex items-center justify-center text-[#F4C95D] border border-gray-800 shadow-md">
+                  <Award size={14} />
                 </div>
               </div>
-              
-              <div className="text-center md:text-left space-y-2">
-                <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter font-display">
-                  {userData?.displayName || "VIP Member"}
+
+              {/* Identity Descriptions */}
+              <div className="text-center md:text-left space-y-1.5">
+                <h1 className="text-2xl md:text-3xl font-medium text-white tracking-wide font-sans">
+                  {userData?.displayName || "VIP Profile Member"}
                 </h1>
-                <p className="text-[#CAC0A9]/60 font-medium text-lg font-body">{user?.email}</p>
-                <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-4">
-                  <span className="px-4 py-1.5 rounded-full bg-accent/20 text-accent text-[10px] font-black uppercase tracking-widest border border-accent/20">
-                    Elite Tier
+                <p className="text-gray-400 font-normal text-sm font-mono">{user?.email}</p>
+                
+                <div className="flex flex-wrap justify-center md:justify-start gap-2 pt-1">
+                  <span className="px-3 py-0.5 rounded-full bg-purple-950/50 text-purple-300 text-[9px] font-bold uppercase tracking-wider border border-purple-900/40">
+                    Elite Profile Tier
                   </span>
-                  <span className="px-4 py-1.5 rounded-full bg-secondary/20 text-secondary text-[10px] font-black uppercase tracking-widest border border-secondary/20">
-                    2,450 Karma Points
+                  <span className="px-3 py-0.5 rounded-full bg-yellow-950/40 text-[#F4C95D] text-[9px] font-bold uppercase tracking-wider border border-[#F4C95D]/20">
+                    2,450 Karma Metrics
                   </span>
                 </div>
               </div>
             </div>
 
+            {/* Account Revocation Action Button */}
             <button
               onClick={handleLogout}
-              className="px-8 py-4 rounded-2xl bg-white/5 text-white font-black hover:bg-red-500/10 hover:text-red-500 transition-all border border-white/5 flex items-center gap-3 active:scale-95"
+              className="px-5 py-2.5 rounded-lg bg-red-950/20 text-red-400 font-medium text-xs uppercase tracking-wider hover:bg-red-900/30 transition-all border border-red-900/30 flex items-center gap-2 active:scale-[0.98]"
             >
-              <LogOut size={20} />
-              Logout Account
+              <LogOut size={13} />
+              <span>Disconnect Session</span>
             </button>
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-12">
-          
-          {/* Left Column: Stats & Menu */}
-          <div className="lg:col-span-4 space-y-8">
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-6">
-              <Link to="/cart" className="group bg-[#130A2C]/60 backdrop-blur-xl p-8 rounded-[40px] border border-white/5 shadow-xl hover:border-accent/30 transition-all">
-                <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
-                  <ShoppingBag size={28} />
+        {/* METRICS & CONSOLE GRID DIVISION LAYOUT */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          {/* Left Block: Metric Profiles & Sub Navigation Console */}
+          <div className="lg:col-span-4 space-y-6">
+            
+            {/* Quick Stat Metric Links */}
+            <div className="grid grid-cols-2 gap-4">
+              <Link to="/cart" className="group bg-[#0B061A]/90 backdrop-blur-xl p-6 rounded-2xl border border-gray-800/80 shadow-xl hover:border-purple-900/50 transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-[#120C24] border border-gray-800 flex items-center justify-center text-[#F4C95D] mb-4 group-hover:border-purple-500 transition-colors">
+                  <ShoppingBag size={18} />
                 </div>
-                <p className="text-4xl font-black text-white tracking-tighter font-display">{stats.cart}</p>
-                <p className="text-[10px] font-black text-[#CAC0A9]/40 uppercase tracking-[0.2em] mt-2">In Collection</p>
+                <p className="text-2xl font-medium text-white tracking-wide font-mono">{stats.cart}</p>
+                <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest mt-1">Active Portfolio</p>
               </Link>
-              
-              <Link to="/wishlist" className="group bg-[#130A2C]/60 backdrop-blur-xl p-8 rounded-[40px] border border-white/5 shadow-xl hover:border-secondary/30 transition-all">
-                <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
-                  <Heart size={28} fill="currentColor" />
+
+              <Link to="/wishlist" className="group bg-[#0B061A]/90 backdrop-blur-xl p-6 rounded-2xl border border-gray-800/80 shadow-xl hover:border-purple-900/50 transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-[#120C24] border border-gray-800 flex items-center justify-center text-red-400 mb-4 group-hover:border-purple-500 transition-colors">
+                  <Heart size={18} fill="currentColor" className="text-red-400/20" />
                 </div>
-                <p className="text-4xl font-black text-white tracking-tighter font-display">{stats.wishlist}</p>
-                <p className="text-[10px] font-black text-[#CAC0A9]/40 uppercase tracking-[0.2em] mt-2">Shortlisted</p>
+                <p className="text-2xl font-medium text-white tracking-wide font-mono">{stats.wishlist}</p>
+                <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest mt-1">Shortlisted Assets</p>
               </Link>
             </div>
 
-            {/* Navigation Menu */}
-            <div className="bg-[#130A2C]/60 backdrop-blur-xl rounded-[48px] border border-white/5 shadow-xl overflow-hidden p-4">
-              <h3 className="px-6 py-4 text-[10px] font-black text-[#CAC0A9]/20 uppercase tracking-[0.3em]">Management</h3>
-              <div className="space-y-1">
+            {/* Profile Route Navigation Hub Menu */}
+            <div className="bg-[#0B061A]/90 backdrop-blur-xl rounded-2xl border border-gray-800/80 shadow-xl overflow-hidden p-2">
+              <h3 className="px-4 py-2.5 text-[9px] font-bold text-gray-600 uppercase tracking-widest">Configuration Matrix</h3>
+              <div className="space-y-0.5">
                 {[
-                  { icon: Settings, label: "Vibration Settings", color: "text-accent", bg: "bg-accent/10" },
-                  { icon: Package, label: "Order History", color: "text-accent", bg: "bg-accent/10" },
-                  { icon: CreditCard, label: "Payment Vault", color: "text-accent", bg: "bg-accent/10" },
-                  { icon: MapPin, label: "Delivery Points", color: "text-accent", bg: "bg-accent/10" },
-                  { icon: Bell, label: "VIP Alerts", color: "text-accent", bg: "bg-accent/10" },
+                  { icon: Settings, label: "Vibration Parameters" },
+                  { icon: Package, label: "Acquisition History" },
+                  { icon: CreditCard, label: "Payment Ledger Vault" },
+                  { icon: MapPin, label: "Transmission Nodes" },
+                  { icon: Bell, label: "VIP Metric Alerts" },
                 ].map((item, idx) => (
-                  <button key={idx} className="w-full flex items-center justify-between p-5 rounded-3xl hover:bg-white/5 transition-all group text-left">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-10 h-10 rounded-xl ${item.bg} ${item.color} flex items-center justify-center`}>
-                        <item.icon size={20} />
+                  <button key={idx} className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-[#120C24] transition-colors group text-left">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-purple-950/40 border border-purple-900/30 text-purple-300 flex items-center justify-center">
+                        <item.icon size={14} />
                       </div>
-                      <span className="font-black text-white/80 group-hover:text-white transition-colors">{item.label}</span>
+                      <span className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors">{item.label}</span>
                     </div>
-                    <ChevronRight size={18} className="text-white/10 group-hover:translate-x-1 transition-transform group-hover:text-secondary" />
+                    <ChevronRight size={14} className="text-gray-700 group-hover:translate-x-0.5 transition-transform group-hover:text-[#F4C95D]" />
                   </button>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Right Column: Recent Activity */}
-          <div className="lg:col-span-8 space-y-12">
-            <div className="bg-[#130A2C]/60 backdrop-blur-xl rounded-[56px] border border-white/5 shadow-xl p-10 md:p-14">
-              <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-6">
+          {/* Right Block: Order Stream Logs & Marketing Milestones */}
+          <div className="lg:col-span-8 space-y-6">
+            
+            {/* Live Acquisitions Register Logs */}
+            <div className="bg-[#0B061A]/90 backdrop-blur-xl rounded-2xl border border-gray-800/80 shadow-xl p-6 md:p-8">
+              <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
                 <div>
-                  <h3 className="text-3xl font-black text-white tracking-tighter font-display">Recent Acquisitions</h3>
-                  <p className="text-[#CAC0A9]/40 font-medium mt-1 font-body">Tracking your latest premium digits.</p>
+                  <h3 className="text-lg font-medium text-white tracking-wide">Recent Sequence Acquisitions</h3>
+                  <p className="text-xs text-gray-500 font-normal mt-0.5">Audited log history of customized configuration profiles.</p>
                 </div>
-                <Link to="/orders" className="px-6 py-3 rounded-2xl border border-white/10 text-[10px] font-black text-white uppercase tracking-widest hover:bg-white hover:text-dark transition-all">
-                  View All
+                <Link to="/orders" className="px-3 py-1.5 rounded-lg border border-gray-800 text-[10px] font-bold text-gray-300 uppercase tracking-wider hover:border-purple-500 hover:text-white transition-colors">
+                  View Full Logs
                 </Link>
               </div>
 
               {recentOrders.length > 0 ? (
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {recentOrders.map((order) => (
-                    <div key={order.id} className="group flex flex-col sm:flex-row items-center justify-between p-8 rounded-[40px] bg-white/5 border border-transparent hover:border-secondary/20 transition-all duration-500">
-                      <div className="flex items-center gap-6 mb-4 sm:mb-0">
-                        <div className="w-16 h-16 rounded-[24px] bg-[#050614] flex items-center justify-center text-secondary border border-white/5 shadow-sm group-hover:scale-110 transition-transform">
-                          <Package size={28} />
+                    <div key={order.id} className="group flex flex-col sm:flex-row items-center justify-between p-4 rounded-xl border border-gray-900 bg-[#06030F]/40 hover:border-purple-900/40 transition-colors">
+                      <div className="flex items-center gap-4 mb-3 sm:mb-0">
+                        <div className="w-11 h-11 rounded-lg bg-[#120C24] flex items-center justify-center text-purple-300 border border-gray-800 shadow-inner group-hover:border-purple-500 transition-colors">
+                          <Package size={18} />
                         </div>
                         <div>
-                          <p className="text-lg font-black text-white font-display">Order #{order.id.slice(0, 8)}</p>
-                          <p className="text-[10px] text-[#CAC0A9]/40 font-bold uppercase tracking-widest">{order.createdAt?.toDate().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                          <p className="text-sm font-medium text-white font-mono">Profile #{order.id.slice(0, 8).toUpperCase()}</p>
+                          <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mt-0.5">
+                            {order.createdAt?.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          </p>
                         </div>
                       </div>
-                      <div className="text-center sm:text-right space-y-2">
-                        <p className="text-3xl font-black text-white tracking-tighter font-display">₹{order.total}</p>
-                        <span className="inline-flex px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <div className="text-center sm:text-right space-y-1">
+                        <p className="text-lg font-medium text-[#F4C95D] font-mono">₹{order.total}</p>
+                        <span className="inline-flex px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-950/50 text-emerald-400 border border-emerald-900/40">
                           {order.status}
                         </span>
                       </div>
@@ -220,33 +233,35 @@ const Account = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-24 bg-white/5 rounded-[48px] border border-dashed border-white/10">
-                  <div className="w-24 h-24 rounded-[32px] bg-[#050614] flex items-center justify-center text-white/5 mx-auto mb-8">
-                    <ShoppingBag size={48} />
+                <div className="text-center py-16 border border-dashed border-gray-900 rounded-xl">
+                  <div className="w-16 h-16 rounded-xl bg-[#120C24] border border-gray-900 flex items-center justify-center text-gray-700 mx-auto mb-4">
+                    <ShoppingBag size={24} />
                   </div>
-                  <h4 className="text-2xl font-black text-white mb-2 font-display">No orders yet</h4>
-                  <p className="text-[#CAC0A9]/40 font-medium mb-10 max-w-xs mx-auto font-body">Your digital legacy begins with your first selection.</p>
-                  <Link to="/shop" className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-accent to-primary text-white rounded-[24px] font-black hover:shadow-2xl hover:shadow-accent/20 transition-all active:scale-95 uppercase tracking-widest text-xs">
-                    Explore Marketplace
-                    <ChevronRight size={20} />
+                  <h4 className="text-sm font-medium text-white mb-1">No Profile Registrations Found</h4>
+                  <p className="text-xs text-gray-500 max-w-xs mx-auto mb-6 font-normal">Your custom dimensional legacy record starts empty.</p>
+                  <Link to="/shop" className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-700 to-purple-600 hover:brightness-110 text-white rounded-lg font-bold uppercase tracking-wider transition-all text-[10px] shadow-md">
+                    <span>Explore Matrix Marketplace</span>
+                    <ChevronRight size={12} />
                   </Link>
                 </div>
               )}
             </div>
 
-            {/* Loyalty Banner */}
-            <div className="bg-gradient-to-r from-[#130A2C] to-accent rounded-[48px] p-10 md:p-14 text-white relative overflow-hidden border border-white/10 shadow-2xl">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
-              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div className="text-center md:text-left">
-                  <h3 className="text-3xl font-black tracking-tighter mb-2 font-display uppercase">VIP REWARDS</h3>
-                  <p className="text-white/70 font-medium font-body">You're only 550 karma points away from your next elite bonus.</p>
+            {/* Elegant Framed Milestone Points Card */}
+            <div className="relative rounded-2xl border border-[#F4C95D]/20 bg-[#0B061A]/40 backdrop-blur-md p-6 md:p-8 overflow-hidden shadow-xl">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-purple-950/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+              <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div className="text-center sm:text-left space-y-1">
+                  <h3 className="text-xs font-bold tracking-widest text-[#F4C95D] uppercase">VIP Milestone Rewards</h3>
+                  <p className="text-sm font-medium text-white">Unlock Extended Profile Alignment</p>
+                  <p className="text-xs text-gray-500 font-normal">You are exactly 550 karma index units clear of your next tier unlock bonus.</p>
                 </div>
-                <button className="px-10 py-5 bg-white text-dark rounded-[24px] font-black hover:bg-secondary hover:text-dark transition-all shadow-xl active:scale-95 uppercase tracking-widest text-xs">
-                  Redeem Points
+                <button className="px-4 py-2 bg-[#120C24] border border-gray-800 hover:border-[#F4C95D] text-[#F4C95D] rounded-lg font-bold text-[10px] uppercase tracking-wider transition-colors shrink-0">
+                  Redeem Matrix Balance
                 </button>
               </div>
             </div>
+
           </div>
         </div>
       </div>

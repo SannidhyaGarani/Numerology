@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Search, Sparkles, Smartphone, ShieldCheck, Zap, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,143 +20,132 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 bg-[#050614]">
-      {/* Background Elements - Responsive Blurs */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute -top-[10%] -left-[10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-accent/20 rounded-full blur-[100px] md:blur-[180px] animate-pulse pointer-events-none" />
-        <div className="absolute -bottom-[10%] -right-[10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary/20 rounded-full blur-[100px] md:blur-[180px] animate-pulse delay-1000 pointer-events-none" />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/sacred-geometry.png')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050614]/40 to-[#050614]" />
-      </div>
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24 bg-[#03030A] text-white select-none">
+      {/* Background Sacred Geometry Grid Overlays */}
+      <div
+        className="absolute inset-0 z-0 opacity-40 pointer-events-none bg-center bg-no-repeat bg-cover"
+        style={{ backgroundImage: 'url("/img/to_banner_bg.png")' }}
+      />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10 w-full">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
+      <div className="max-w-[1240px] mx-auto px-6 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+          {/* LEFT COLUMN: TYPOGRAPHY AND INTERACTIVE ACTIONS */}
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-10 md:space-y-14 text-center lg:text-left z-20 w-full"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-7 space-y-6 text-center lg:text-left"
           >
-            <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/[0.03] border border-white/5 text-secondary text-[9px] md:text-[11px] font-medium uppercase tracking-[0.5em] mx-auto lg:mx-0 backdrop-blur-md shadow-2xl relative overflow-hidden group">
-              <Sparkles size={14} className="opacity-70 group-hover:rotate-180 transition-transform duration-700" />
-              <span className="relative z-10">Celestial Archive Alpha</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-            </div>
-
-            <h1 className="text-[2.8rem] md:text-6xl lg:text-7xl font-extralight leading-[0.9] font-display text-gradient-gold tracking-tighter">
-              Find your lucky <br />
-              <span className="block mt-2 font-light uppercase text-white drop-shadow-2xl">MOBILE NUMBER</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-normal leading-tight font-sans">
+              <span className="text-[#F4C95D] block mb-1">Find Your Lucky</span>
+              <span className="text-white block uppercase">MOBILE NUMBER</span>
             </h1>
 
-            <p className="text-sm md:text-xl text-white/40 max-w-lg leading-relaxed font-body mx-auto lg:mx-0 font-light tracking-widest uppercase italic">
-              Synchronize your identity with the cosmic frequency. Discover a VIP asset curated for your aura.
+            <p className="text-xl sm:text-2xl font-normal text-white/90 tracking-wide font-sans">
+              Premium Lucky Powerful
             </p>
 
-            {/* Premium Search Bar */}
-            <form onSubmit={handleSearch} className="relative max-w-xl group mx-auto lg:mx-0 w-full">
-              <div className="absolute -inset-1 bg-gradient-to-r from-accent/40 to-primary/40 rounded-3xl blur-2xl opacity-0 group-focus-within:opacity-20 transition duration-1000" />
-              <div className="relative flex items-center bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-2xl md:rounded-[2.5rem] p-2 shadow-[0_30px_70px_rgba(0,0,0,0.5)] transition-all duration-700 group-focus-within:border-white/20">
-                <div className="pl-6 text-white/20">
-                  <Search size={22} strokeWidth={1} />
-                </div>
+            <p className="text-[#F4C95D] text-sm md:text-base font-medium max-w-xl">
+              Choose from our exclusive collection of VIP, Fancy & Lucky Mobile Numbers
+            </p>
+
+            {/* Action Search Bar */}
+            <form onSubmit={handleSearch} className="relative max-w-xl w-full pt-2">
+              <div className="flex items-center bg-white rounded-full overflow-hidden p-1 shadow-2xl">
                 <input
                   type="text"
-                  placeholder="Scan frequency or pattern..."
+                  placeholder="Enter digits to search (e.g. 999, 786, 2222)"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent border-none focus:ring-0 text-white px-4 py-5 md:py-7 placeholder:text-white/5 font-display text-lg md:text-xl font-light tracking-widest"
+                  className="w-full bg-transparent text-gray-900 px-6 py-3 text-sm md:text-base outline-none focus:ring-0 placeholder:text-gray-400 font-medium"
                 />
-                <button type="submit" className="hidden md:flex bg-white text-dark px-10 py-5 rounded-2xl md:rounded-[1.8rem] font-bold uppercase tracking-[0.3em] text-[10px] transition-all duration-700 hover:bg-secondary hover:text-dark shadow-2xl hover:scale-105">
-                  Launch Scan
+                <button
+                  type="submit"
+                  className="bg-[#6B2DFF] hover:bg-purple-700 active:scale-[0.98] text-white px-8 py-3 rounded-full font-bold text-sm tracking-wider transition-all uppercase flex items-center gap-2"
+                >
+                  Search
                 </button>
               </div>
-              <button type="submit" className="md:hidden mt-4 w-full bg-white text-dark py-5 rounded-2xl font-bold uppercase tracking-[0.3em] text-[10px] shadow-2xl">
-                Launch Scan
-              </button>
             </form>
 
             {/* Popular Searches */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-8 text-[10px] font-body">
-              <span className="text-white/20 font-light uppercase tracking-[0.4em]">Resonance:</span>
-              {["786", "1111", "9999", "0007"].map((tag) => (
-                <button 
-                  key={tag} 
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-2 text-xs">
+              <span className="text-gray-400 font-bold mr-2">Popular Searches</span>
+              {["786", "999", "1111", "1234", "3333"].map((tag) => (
+                <button
+                  type="button"
+                  key={tag}
                   onClick={() => handleTagClick(tag)}
-                  className="text-white/30 hover:text-secondary transition-all font-light tracking-[0.3em] uppercase border-b border-white/5 hover:border-secondary/40 pb-1"
+                  className="bg-purple-950/40 border border-purple-900/60 hover:border-purple-500 text-purple-300 px-3 py-1 rounded-md font-medium tracking-wide transition-all"
                 >
                   {tag}
                 </button>
               ))}
-            </div>
-
-            {/* Trust Badges */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-10 md:gap-14 pt-10 border-t border-white/5">
-              <div className="flex items-center gap-4 text-white/20 text-[10px] font-light uppercase tracking-[0.4em]">
-                <ShieldCheck size={18} strokeWidth={1} className="text-secondary/40" />
-                <span>Verified Archive</span>
-              </div>
-              <div className="flex items-center gap-4 text-white/20 text-[10px] font-light uppercase tracking-[0.4em]">
-                <Zap size={18} strokeWidth={1} className="text-secondary/40" />
-                <span>Instant Sync</span>
-              </div>
+              <button
+                type="button"
+                onClick={() => navigate("/shop")}
+                className="bg-purple-950/40 border border-purple-900/60 text-purple-300 px-3 py-1 rounded-md font-medium tracking-wide hover:border-purple-500 transition-all"
+              >
+                More
+              </button>
             </div>
           </motion.div>
 
-          {/* Right Content - VIP Number Showcase */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex items-center justify-center w-full min-h-[350px] md:min-h-[500px]"
+          {/* RIGHT COLUMN: HALF-HEIGHT EMBEDDED PHONE DEVICE INTERFACE */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+            className="lg:col-span-5 flex justify-center lg:justify-end items-start self-start"
           >
-            <div className="relative w-full max-w-[500px] aspect-square md:aspect-[4/5] flex items-center justify-center">
-              {/* Rotating Sacred Circles */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-40">
-                <div className="w-[110%] h-[110%] border border-white/[0.03] rounded-full animate-[spin_80s_linear_infinite]" />
-                <div className="absolute w-[90%] h-[90%] border border-white/[0.03] rounded-full animate-[spin_50s_linear_infinite_reverse]" />
-                <div className="absolute w-[70%] h-[70%] border border-white/[0.05] rounded-full animate-[spin_30s_linear_infinite]" />
+            <div className="relative w-full max-w-[340px] h-[380px] bg-gradient-to-b from-[#19103A] to-[#0E0824] border-t-4 border-x-4 border-gray-800 rounded-t-[2.5rem] p-4 shadow-[0_-10px_50px_rgba(107,45,255,0.15)] overflow-hidden flex flex-col justify-start items-center text-center">
+
+              {/* Speaker Ear Notch */}
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-4 bg-black/60 rounded-full z-20 flex items-center justify-center">
+                <div className="w-8 h-1 bg-gray-800 rounded-full" />
               </div>
 
-              <div className="relative w-full h-full flex items-center justify-center p-8">
-                <img
-                  src="img/mobile_image.png"
-                  alt="Premium VIP Number Showcase"
-                  className="h-full w-auto object-contain drop-shadow-[0_0_120px_rgba(212,175,55,0.15)] animate-float pointer-events-none drop-shadow-2xl"
-                />
+              {/* Background Circular Aura Elements */}
+              <div className="absolute top-20 w-64 h-64 border border-purple-500/10 rounded-full pointer-events-none flex items-center justify-center">
+                <div className="w-48 h-48 border border-dashed border-purple-500/5 rounded-full animate-[spin_40s_linear_infinite]" />
               </div>
 
-              {/* Floating Meta Cards */}
-              <motion.div
-                animate={{ y: [0, -25, 0], x: [0, 5, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[10%] -right-[5%] md:right-0 glass-premium p-4 md:p-7 rounded-2xl md:rounded-3xl border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex items-center gap-4 z-30 backdrop-blur-2xl"
-              >
-                <div className="w-10 md:w-12 h-10 md:h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary shadow-inner border border-secondary/20">
-                  <Smartphone size={20} strokeWidth={1} />
+              {/* Header Context Title Panel */}
+              <div className="relative z-10 w-full pt-8 flex flex-col items-center">
+                <div className="flex items-center gap-1.5 text-[#F4C95D] text-xs font-extrabold uppercase tracking-wider mb-6">
+                  <span className="text-sm">👑</span> Premium Number
                 </div>
-                <div>
-                  <p className="text-[7px] font-medium uppercase tracking-[0.3em] text-white/30">Protocol</p>
-                  <p className="text-[11px] md:text-[13px] font-light font-display text-white tracking-widest uppercase italic">Elite Tier</p>
-                </div>
-              </motion.div>
 
-              <motion.div
-                animate={{ y: [0, 25, 0], x: [0, -5, 0] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-[10%] -left-[5%] md:left-0 glass-premium p-4 md:p-7 rounded-2xl md:rounded-3xl border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex items-center gap-4 z-30 backdrop-blur-2xl"
-              >
-                <div className="w-10 md:w-12 h-10 md:h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent shadow-inner border border-accent/20">
-                  <Zap size={20} strokeWidth={1} />
+                {/* Core Number String Segment */}
+                <div className="text-[2rem] font-black tracking-wide text-white select-all font-mono mb-6 leading-none">
+                  98999 <span className="text-[#F4C95D]">35999</span>
                 </div>
-                <div>
-                  <p className="text-[7px] font-medium uppercase tracking-[0.3em] text-white/30">Vibration</p>
-                  <p className="text-[11px] md:text-[13px] font-light font-display text-white tracking-widest uppercase italic">Max Sync</p>
+              </div>
+
+              {/* Tag Category Badge Wrapper */}
+              <div className="relative z-10 w-full flex justify-center mb-6">
+                <span className="px-4 py-1 bg-white text-[#03030A] font-black text-[11px] tracking-widest rounded uppercase shadow-md">
+                  Triple 9 Power
+                </span>
+              </div>
+
+              {/* Pricing Context Details Frame */}
+              <div className="relative z-10 w-full flex flex-col items-center">
+                <div className="border border-white/80 rounded px-8 py-2.5 bg-black/40 mb-3 min-w-[210px]">
+                  <span className="text-[#F4C95D] text-2xl font-black tracking-wide font-sans">
+                    ₹ 15,999/-
+                  </span>
                 </div>
-              </motion.div>
+                <div className="text-gray-400 font-mono text-base line-through tracking-wider decoration-white decoration-2">
+                  ₹ 29,999
+                </div>
+              </div>
+
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

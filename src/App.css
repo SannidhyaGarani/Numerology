@@ -76,4 +76,12 @@
   .border-neon {
     @apply border border-[#6720C5] shadow-[0_0_10px_rgba(103,32,197,0.3)];
   }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

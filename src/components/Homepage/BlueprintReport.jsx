@@ -1,87 +1,118 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Download, Sparkles, ArrowRight } from 'lucide-react';
+import { ShieldCheck, UserCheck, Star, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const BlueprintReport = () => {
+  const navigate = useNavigate();
   return (
-    <section className="py-20 relative overflow-hidden bg-dark">
-      <div className="max-w-[1440px] mx-auto px-6">
-        <div className="relative rounded-[40px] overflow-hidden border border-white/10 shadow-2xl group">
-          {/* Background Image with Parallax Effect */}
-          <motion.div 
-            initial={{ scale: 1.1 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 1.5 }}
-            className="absolute inset-0 z-0"
-          >
-            <img 
-              src="img/bg2.png" 
-              alt="Numerology Blueprint" 
-              className="w-full h-full object-cover opacity-60"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050614] via-transparent to-[#050614] opacity-80" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050614] via-transparent to-transparent opacity-60" />
-          </motion.div>
+    <section className="py-12 bg-[#05050A]">
+      <div className="max-w-[1500px] mx-auto px-4">
 
-          {/* Content Overlay */}
-          <div className="relative z-10 px-8 py-20 md:px-16 md:py-24 flex flex-col items-center text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass border-white/5 text-secondary text-[10px] font-light uppercase tracking-[0.4em] mb-10"
-            >
-              <Sparkles size={12} className="opacity-50" />
-              <span>Celestial Blueprinting</span>
-            </motion.div>
+        {/* MAIN CONTAINER */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="
+        relative overflow-hidden rounded-[2px]
+        shadow-[0_0_60px_rgba(107,45,255,0.25)]
+      "
+        >
+          {/* FULL BACKGROUND IMAGE */}
+          <img
+            src="img/bg2.png"
+            alt="Background"
+            className="
+          absolute inset-0
+          w-full h-full
+          object-cover
+          object-center
+        "
+          />
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-light text-white mb-8 leading-none max-w-5xl tracking-tight"
-            >
-              Decode Your <br />
-              <span className="text-gradient-gold block mt-2">DESTINY ARCHIVE</span>
-            </motion.h2>
+          {/* BACKGROUND REMOVAL OF OVERLAY */}
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-white/30 text-lg max-w-2xl mb-16 font-light leading-relaxed tracking-wide"
-            >
-              A meticulous 40-page analysis of your existence. Uncover the fundamental frequencies that architecture your timeline.
-            </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center gap-8"
-            >
-              <button className="bg-white text-dark px-10 py-5 rounded-2xl font-light uppercase tracking-[0.3em] text-[10px] shadow-2xl transition-all duration-700 hover:bg-secondary hover:text-dark flex items-center justify-center gap-3">
-                <FileText size={16} strokeWidth={1} />
-                Generate Archive
-                <ArrowRight size={14} strokeWidth={1} />
-              </button>
-              
-              <div className="flex items-center gap-5 px-8 py-5 rounded-2xl glass border-white/5 transition-all duration-700 hover:border-white/20">
-                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-secondary">
-                  <Download size={18} strokeWidth={1} />
-                </div>
-                <div className="text-left">
-                  <p className="text-[9px] font-light uppercase tracking-[0.4em] text-white/20">Preview Instance</p>
-                  <p className="text-xs font-light text-white tracking-widest">Sample Data</p>
-                </div>
+          {/* CONTENT */}
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-[500px] px-6 md:px-10 py-16 text-center">
+
+            {/* CENTER CONTENT */}
+            <div className="flex flex-col items-center max-w-xl">
+
+
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D4AF37]/30 bg-black/30 backdrop-blur-md text-[#F4C95D] text-[11px] font-semibold uppercase tracking-[0.2em] mb-4">
+                Premium Service
               </div>
-            </motion.div>
 
-            {/* Floating Elements for Premium Feel */}
-            <div className="absolute top-10 left-10 w-32 h-32 bg-accent/20 rounded-full blur-[80px] animate-pulse" />
-            <div className="absolute bottom-10 right-10 w-32 h-32 bg-secondary/20 rounded-full blur-[80px] animate-pulse delay-700" />
+              {/* Heading */}
+              <h2 className="font-serif leading-[1.1] text-white text-3xl md:text-5xl">
+
+                Handcrafted Personal
+                <br />
+                <span className="text-[#D4AF37] italic">
+                  Number Blueprint
+                </span>
+              </h2>
+
+              {/* Subtitle */}
+              <p className="mt-4 text-[#D8C8F5] uppercase tracking-[0.18em] text-[10px] md:text-xs">
+                Not Ai . Not Software . Handwritten Just For You
+              </p>
+
+              {/* Description */}
+              <p className="mt-3 text-gray-300 text-xs md:text-[14px] leading-relaxed max-w-[420px]">
+                Our Expert Numerologists manually analyze your details and
+                create a unique handwritten numerology chart to recommend
+                the best mobile number pairs and combinations for you.
+              </p>
+
+              {/* FEATURES */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 mt-8 w-full">
+
+                {[
+                  '100% Handmade',
+                  'No Automation',
+                  'Private & Secure',
+                  'Expert Crafted',
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="
+                  flex flex-col items-center gap-2
+
+                  bg-black/20 backdrop-blur-sm
+                  border border-white/10
+                  rounded-2xl p-4
+                "
+                  >
+                    <div className="w-12 h-12 rounded-full border border-[#D4AF37]/30 bg-[#12071F]/80 flex items-center justify-center text-[#D4AF37]">
+                      ✦
+                    </div>
+
+                    <span className="text-[10px] uppercase tracking-wider text-gray-200">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              {/* CTA Button */}
+              <button 
+                onClick={() => navigate('/contact')}
+                className="mt-8 px-10 py-3.5 rounded-xl bg-[#F4C95D] text-black font-bold uppercase tracking-widest text-xs hover:brightness-110 active:scale-[0.99] transition-all shadow-xl flex items-center gap-2"
+              >
+                Consult Now
+                <ArrowRight size={14} />
+              </button>
+            </div>
+
+            {/* RIGHT CARD */}
+
+
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

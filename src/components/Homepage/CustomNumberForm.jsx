@@ -2,85 +2,113 @@ import React from 'react';
 import { Sparkles, Send, User, Calendar, Clock, Smartphone } from 'lucide-react';
 
 const CustomNumberForm = () => {
-    return (
-        <section className="mt-32 relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5 rounded-[4rem] blur-3xl -z-10" />
-            
-            <div className="glass rounded-[4rem] p-10 md:p-20 border border-white/5 relative overflow-hidden">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                    <div className="space-y-8">
-                        <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-[10px] font-medium uppercase tracking-[0.4em]">
-                            <Sparkles size={14} />
-                            Bespoke Frequencies
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-light font-display tracking-tight leading-tight uppercase">
-                            Request Your <br />
-                            <span className="text-gradient-gold">CUSTOMIZED NUMBER</span>
-                        </h2>
-                        <p className="text-base text-white/40 font-light leading-relaxed max-w-md tracking-widest">
-                            Can't find your perfect match? Share your cosmic details, and our numerology experts will curate a selection tailored specifically to your vibrational frequency.
-                        </p>
-                    </div>
+  return (
+    <section className="mt-24 relative select-none">
+      {/* Subtle Premium Blur Backdrops */}
+      <div className="absolute inset-0 bg-purple-950/5 rounded-3xl blur-3xl -z-10 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-purple-900/10 rounded-full blur-[100px] pointer-events-none" />
 
-                    <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 ml-2">Full Name</label>
-                                <div className="relative">
-                                    <User className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-                                    <input 
-                                        type="text" 
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-6 py-5 text-[12px] font-light text-white outline-none focus:bg-white/10 focus:border-secondary/30 transition-all placeholder:text-white/10 tracking-widest" 
-                                        placeholder="Your Identity" 
-                                    />
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 ml-2">Date of Birth</label>
-                                <div className="relative">
-                                    <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-                                    <input 
-                                        type="date" 
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-6 py-5 text-[12px] font-light text-white outline-none focus:bg-white/10 focus:border-secondary/30 transition-all placeholder:text-white/10 tracking-widest" 
-                                    />
-                                </div>
-                            </div>
-                        </div>
+      <div className="rounded-2xl border border-gray-800/80 bg-[#0B061A]/90 backdrop-blur-xl p-8 md:p-16 shadow-2xl relative overflow-hidden">
+        {/* Background Sacred Geometric Texture Overlay */}
+        <div 
+          className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-center bg-no-repeat bg-cover" 
+          style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/sacred-geometry.png')` }} 
+        />
 
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 ml-2">Birth Time</label>
-                                <div className="relative">
-                                    <Clock className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-                                    <input 
-                                        type="time" 
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-6 py-5 text-[12px] font-light text-white outline-none focus:bg-white/10 focus:border-secondary/30 transition-all placeholder:text-white/10 tracking-widest" 
-                                    />
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 ml-2">Preferred Digits / Pattern *</label>
-                                <div className="relative">
-                                    <Smartphone className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-                                    <input 
-                                        required 
-                                        type="text" 
-                                        className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-6 py-5 text-[12px] font-light text-white outline-none focus:bg-white/10 focus:border-secondary/30 transition-all placeholder:text-white/10 tracking-widest" 
-                                        placeholder="e.g. 786, 9999, 007" 
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <button className="w-full py-6 rounded-2xl bg-white text-dark font-bold text-[10px] uppercase tracking-[0.5em] shadow-2xl hover:bg-secondary transition-all duration-700 flex items-center justify-center gap-4 group">
-                            Submit Request
-                            <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        </button>
-                    </form>
-                </div>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Block: Narrative Context */}
+          <div className="lg:col-span-5 space-y-5">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-purple-950/50 text-purple-300 border border-purple-900/50 w-fit">
+              <Sparkles size={10} className="text-[#F4C95D]" />
+              Bespoke Frequencies
             </div>
-        </section>
-    );
+            
+            <h2 className="text-3xl md:text-5xl font-medium tracking-normal text-white leading-tight font-sans">
+              Request Your <br />
+              <span className="text-[#F4C95D] uppercase tracking-wide">Customized Number</span>
+            </h2>
+            
+            <p className="text-sm text-gray-400 leading-relaxed font-normal max-w-sm">
+              Can't find your perfect asset combination within our live logs? Share your core dimensional coordinates, and our desk will manually curate a sequence aligned to your corporate profile.
+            </p>
+          </div>
+
+          {/* Right Block: Transmission Input Grid */}
+          <form className="lg:col-span-7 space-y-5 w-full" onSubmit={(e) => e.preventDefault()}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              {/* Full Name Input */}
+              <div className="space-y-1.5">
+                <label className="block text-[#F4C95D] text-xs font-bold tracking-wide">Full Name / Entity</label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={14} />
+                  <input
+                    type="text"
+                    className="w-full bg-[#120C24] border border-gray-800 rounded-lg pl-11 pr-4 py-2.5 text-sm text-white focus:border-purple-500 outline-none transition-colors placeholder:text-gray-600 font-medium"
+                    placeholder="Your Identity"
+                  />
+                </div>
+              </div>
+
+              {/* Date of Birth Input */}
+              <div className="space-y-1.5">
+                <label className="block text-[#F4C95D] text-xs font-bold tracking-wide">Date of Birth</label>
+                <div className="relative">
+                  <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={14} />
+                  <input
+                    type="date"
+                    className="w-full bg-[#120C24] border border-gray-800 rounded-lg pl-11 pr-4 py-2.5 text-sm text-white focus:border-purple-500 outline-none transition-colors text-gray-400 font-medium [color-scheme:dark]"
+                  />
+                </div>
+              </div>
+
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              {/* Birth Time Input */}
+              <div className="space-y-1.5">
+                <label className="block text-[#F4C95D] text-xs font-bold tracking-wide">Time of Origin</label>
+                <div className="relative">
+                  <Clock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={14} />
+                  <input
+                    type="time"
+                    className="w-full bg-[#120C24] border border-gray-800 rounded-lg pl-11 pr-4 py-2.5 text-sm text-white focus:border-purple-500 outline-none transition-colors text-gray-400 font-medium [color-scheme:dark]"
+                  />
+                </div>
+              </div>
+
+              {/* Preferred Digits Input */}
+              <div className="space-y-1.5">
+                <label className="block text-[#F4C95D] text-xs font-bold tracking-wide">Preferred Matrix Pattern *</label>
+                <div className="relative">
+                  <Smartphone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={14} />
+                  <input
+                    required
+                    type="text"
+                    className="w-full bg-[#120C24] border border-gray-800 rounded-lg pl-11 pr-4 py-2.5 text-sm text-white focus:border-purple-500 outline-none transition-colors placeholder:text-gray-600 font-medium"
+                    placeholder="e.g., 786, 9999, 007"
+                  />
+                </div>
+              </div>
+
+            </div>
+
+            {/* Submit Action Block */}
+            <button 
+              type="submit" 
+              className="w-full py-3.5 bg-gradient-to-r from-purple-700 to-purple-600 hover:brightness-110 active:scale-[0.99] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all shadow-md flex items-center justify-center gap-2 group"
+            >
+              <span>Submit Configuration Request</span>
+              <Send size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </button>
+            
+          </form>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default CustomNumberForm;

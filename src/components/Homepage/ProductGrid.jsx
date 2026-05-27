@@ -1,80 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Search, Sparkles, ShoppingBag, Heart, Filter, ArrowRight, Star, Loader2, Smartphone, Zap } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, Filter, Loader2, Smartphone, ChevronDown, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { db } from '../../components/Firebase';
 import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 
-const CATEGORIES = [
-  'All Numbers',
-  'Triple 9',
-  'Double Digit',
-  '786 Series',
-  'Quad 1',
-  'Sequence',
-];
-
 const NumberCard = ({ item }) => {
+  const navigate = useNavigate();
+  // Function to split phone numbers into a dim suffix and golden VIP target
+  const renderFormattedNumber = (numStr) => {
+    const cleanNum = numStr.replace(/\s+/g, '');
+    if (cleanNum.length <= 5) return <span className="text-[#F4C95D]">{cleanNum}</span>;
+    const firstPart = cleanNum.slice(0, cleanNum.length - 5);
+    const lastPart = cleanNum.slice(cleanNum.length - 5);
+    return (
+      <>
+        <span className="text-gray-400">{firstPart} </span>
+        <span className="text-[#F4C95D] font-bold">{lastPart}</span>
+      </>
+    );
+  };
+
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative bg-[#130A2C]/20 backdrop-blur-3xl p-5 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-white/5 hover:border-secondary/40 transition-all duration-700 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between min-h-[320px] md:min-h-[420px]"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      className="bg-[#0D0D16] border border-gray-800 rounded-2xl p-6 flex flex-col justify-between items-center text-center shadow-lg relative"
     >
-      {/* Dynamic Glow */}
-      <div className="absolute -top-[10%] -right-[10%] w-[60%] h-[60%] bg-secondary/5 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-      <div className="absolute -bottom-[10%] -left-[10%] w-[60%] h-[60%] bg-primary/5 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-
-      <div className="relative z-10 space-y-6 md:space-y-8">
-        <div className="flex justify-between items-start">
-          <div className="flex flex-col gap-1">
-            <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[7px] md:text-[9px] font-medium uppercase tracking-[0.3em] border border-secondary/20">
-              {item.badge || item.category}
-            </span>
-          </div>
-          <button className="text-white/10 hover:text-secondary transition-all duration-500 hover:scale-125">
-            <Heart size={16} strokeWidth={1} />
-          </button>
+      <div className="w-full space-y-4">
+        {/* Number Box */}
+        <div className="text-xl md:text-2xl tracking-wide font-mono py-2 text-center select-all">
+          {renderFormattedNumber(item.number)}
         </div>
 
-        <div className="space-y-2 md:space-y-4 text-center">
-          <p className="text-white/20 text-[7px] md:text-[9px] font-light uppercase tracking-[0.5em] font-display">{item.category}</p>
-          <div className="relative inline-block">
-            <h3 className="text-2xl md:text-5xl font-light tracking-tighter text-white font-number group-hover:text-gradient-gold transition-all duration-700 leading-none">
-              {item.number}
-            </h3>
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-secondary/40 group-hover:w-full transition-all duration-1000" />
-          </div>
+        {/* Badge Label */}
+        <div className="flex justify-center">
+          <span className="px-4 py-1 rounded-full border border-purple-900 bg-purple-950/30 text-purple-400 text-[10px] font-semibold uppercase tracking-wider">
+            {item.badge || item.category}
+          </span>
         </div>
 
-        <div className="pt-6 md:pt-8 border-t border-white/5 flex items-center justify-between">
-          <div className="space-y-1">
-            <p className="text-lg md:text-3xl font-light text-white font-display tracking-tight leading-none">₹{Number(item.price).toLocaleString()}</p>
-            {item.mrp > item.price && (
-              <p className="text-[9px] md:text-[11px] text-white/20 line-through font-body tracking-widest">₹{Number(item.mrp).toLocaleString()}</p>
-            )}
-          </div>
-          <button className="bg-white/5 hover:bg-white hover:text-dark p-3 md:p-5 rounded-xl md:rounded-2xl transition-all duration-700 group-hover:rotate-[360deg] shadow-inner border border-white/5">
-            <ShoppingBag size={14} md:size={18} strokeWidth={1} />
-          </button>
+        {/* Price Label */}
+        <div className="text-white text-xl font-bold font-sans">
+          ₹{Number(item.price).toLocaleString()}
         </div>
       </div>
 
-      <button className="relative z-10 w-full py-4 md:py-5 mt-6 md:mt-8 rounded-xl md:rounded-2xl bg-white/[0.03] hover:bg-white hover:text-dark text-[8px] md:text-[10px] font-light uppercase tracking-[0.4em] transition-all duration-700 flex items-center justify-center gap-3 border border-white/5 hover:border-white group/btn overflow-hidden">
-        <span className="relative z-10">Acquire Frequency</span>
-        <ArrowRight size={14} strokeWidth={1} className="relative z-10 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-700" />
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary/10 to-accent/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-700" />
+      {/* Reserve CTA */}
+      <button 
+        onClick={() => navigate(`/checkout`, { state: { product: item } })}
+        className="w-full mt-6 py-2.5 px-4 rounded-xl border border-purple-900/60 bg-gradient-to-r from-purple-950/20 to-transparent hover:from-purple-900/40 text-purple-400 hover:text-purple-300 text-xs font-medium uppercase tracking-widest flex items-center justify-between transition-all duration-300 group"
+      >
+        <span className="mx-auto pl-4 group-hover:scale-105 transition-transform">Reserve</span>
+        <Lock size={12} className="text-gray-600" />
       </button>
     </motion.div>
   );
 };
 
 const ProductGrid = () => {
-  const [activeCategory, setActiveCategory] = useState('All Numbers');
+  const scrollRef = React.useRef(null);
   const [numbers, setNumbers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
@@ -88,12 +75,12 @@ const ProductGrid = () => {
   useEffect(() => {
     const fetchNumbers = async () => {
       try {
-        const q = query(collection(db, "vipNumbers"), orderBy("createdAt", "desc"), limit(8));
+        const q = query(collection(db, "vipNumbers"), orderBy("createdAt", "desc"));
         const snap = await getDocs(q);
         const data = snap.docs.map(d => ({ id: d.id, ...d.data() }));
         setNumbers(data);
       } catch (err) {
-        console.log("Error fetching numbers:", err);
+        console.error("Error fetching numbers:", err);
       } finally {
         setLoading(false);
       }
@@ -106,18 +93,31 @@ const ProductGrid = () => {
     setFilters(prev => ({ ...prev, [name]: value }));
   };
 
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' 
+        ? scrollLeft - clientWidth
+        : scrollLeft + clientWidth;
+      
+      scrollRef.current.scrollTo({
+        left: scrollTo,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const filteredNumbers = numbers
     .filter(item => {
       if ((item.status || "Available") !== "Available") return false;
       const num = item.number.replace(/\s+/g, '');
-      const catMatch = activeCategory === 'All Numbers' || item.category === activeCategory;
       const startsMatch = !filters.startsWith || num.startsWith(filters.startsWith);
       const endsMatch = !filters.endsWith || num.endsWith(filters.endsWith);
       const includesMatch = !filters.includes || num.includes(filters.includes);
-      const vibrationMatch = filters.vibration === 'All Frequencies' || 
-                           (item.badge || '').toLowerCase().includes(filters.vibration.toLowerCase()) ||
-                           (item.category || '').toLowerCase().includes(filters.vibration.toLowerCase());
-      return catMatch && startsMatch && endsMatch && includesMatch && vibrationMatch;
+      const vibrationMatch = filters.vibration === 'All Frequencies' || filters.vibration === 'Vibration' ||
+        (item.badge || '').toLowerCase().includes(filters.vibration.toLowerCase()) ||
+        (item.category || '').toLowerCase().includes(filters.vibration.toLowerCase());
+      return startsMatch && endsMatch && includesMatch && vibrationMatch;
     })
     .sort((a, b) => {
       if (filters.sortBy === 'Price: Low to High') return a.price - b.price;
@@ -126,127 +126,167 @@ const ProductGrid = () => {
     });
 
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden bg-[#050614]">
-      {/* Ambient background blurs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[140px] -mr-64 -mt-64 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] -ml-32 -mb-32 pointer-events-none" />
-      
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-16 md:mb-24">
-          <div className="space-y-4 md:space-y-6 text-center lg:text-left">
-            <div className="flex items-center justify-center lg:justify-start gap-3 text-secondary/70">
-              <Sparkles size={14} className="animate-pulse" />
-              <span className="text-[10px] md:text-[11px] font-light uppercase tracking-[0.5em] font-display">Archives Alpha</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-light font-display tracking-tighter leading-[0.9]">
-              Elite <span className="text-gradient-gold block mt-2">SELECTIONS</span>
+    <section className="py-12 bg-[#030308] text-white">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8">
+        
+        {/* ROW 1: HEADER ELEMENT */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-2">
+            <span className="text-orange-500 text-xl">🔥</span>
+            <h2 className="text-lg md:text-xl font-bold tracking-wide text-white">
+              Popular VIP Numbers
             </h2>
           </div>
-          
-          {/* Mobile Category Slider */}
-          <div className="flex items-center gap-3 overflow-x-auto pb-4 md:pb-0 scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-light uppercase tracking-[0.3em] whitespace-nowrap transition-all duration-700 border ${
-                  activeCategory === cat 
-                  ? 'bg-white text-dark border-white shadow-[0_10px_30px_rgba(255,255,255,0.1)]' 
-                  : 'bg-white/5 text-white/30 hover:text-white/60 border-white/5 hover:border-white/20 hover:bg-white/10'
-                }`}
+          <Link to="/shop" className="text-xs text-[#F4C95D] hover:underline flex items-center gap-1 transition-all">
+            View All Numbers <span className="text-sm font-sans">➔</span>
+          </Link>
+        </div>
+
+        {/* ROW 2: FILTER PANEL (TOP OF CARDS) */}
+        <div className="mb-8 p-5 md:p-6 rounded-2xl border border-[#D4AF37]/40 bg-[#0A0A12] shadow-xl">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 items-end">
+            
+            {/* Input 1 */}
+            <div className="space-y-2">
+              <label className="block text-[11px] text-[#F4C95D] uppercase tracking-wider font-semibold">Starts With</label>
+              <div className="relative">
+                <input 
+                  type="text" name="startsWith" placeholder="Any" value={filters.startsWith} onChange={handleFilterChange}
+                  className="w-full bg-[#05050A] border border-gray-800 rounded-xl px-4 py-3 text-xs text-white focus:border-purple-500 outline-none transition-all" 
+                />
+                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Input 2 */}
+            <div className="space-y-2">
+              <label className="block text-[11px] text-[#F4C95D] uppercase tracking-wider font-semibold">Ends With</label>
+              <div className="relative">
+                <input 
+                  type="text" name="endsWith" placeholder="Any" value={filters.endsWith} onChange={handleFilterChange}
+                  className="w-full bg-[#05050A] border border-gray-800 rounded-xl px-4 py-3 text-xs text-white focus:border-purple-500 outline-none transition-all" 
+                />
+                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Input 3 */}
+            <div className="space-y-2">
+              <label className="block text-[11px] text-[#F4C95D] uppercase tracking-wider font-semibold">Contains</label>
+              <div className="relative">
+                <input 
+                  type="text" name="includes" placeholder="Any" value={filters.includes} onChange={handleFilterChange}
+                  className="w-full bg-[#05050A] border border-gray-800 rounded-xl px-4 py-3 text-xs text-white focus:border-purple-500 outline-none transition-all" 
+                />
+                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Select 1 */}
+            <div className="space-y-2">
+              <label className="block text-[11px] text-[#F4C95D] uppercase tracking-wider font-semibold">Number Type</label>
+              <div className="relative">
+                <select 
+                  name="vibration" value={filters.vibration} onChange={handleFilterChange}
+                  className="w-full bg-[#05050A] border border-gray-800 rounded-xl pl-4 pr-8 py-3 text-xs text-white focus:border-purple-500 outline-none transition-all appearance-none"
+                >
+                  <option value="All Frequencies">All Types</option>
+                  <option value="Triple">Triple</option>
+                  <option value="Double">Double</option>
+                  <option value="Quad">Quad</option>
+                  <option value="Sequence">Sequence</option>
+                </select>
+                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Select 2 */}
+            <div className="space-y-2">
+              <label className="block text-[11px] text-[#F4C95D] uppercase tracking-wider font-semibold">Price Range</label>
+              <div className="relative">
+                <select 
+                  name="sortBy" value={filters.sortBy} onChange={handleFilterChange}
+                  className="w-full bg-[#05050A] border border-gray-800 rounded-xl pl-4 pr-8 py-3 text-xs text-white focus:border-purple-500 outline-none transition-all appearance-none"
+                >
+                  <option value="Default">Min - Max</option>
+                  <option value="Price: Low to High">Price: Low to High</option>
+                  <option value="Price: High to Low">Price: High to Low</option>
+                </select>
+                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Reset/Action Button */}
+            <div>
+              <button 
+                onClick={() => setFilters({ startsWith: '', endsWith: '', includes: '', vibration: 'All Frequencies', sortBy: 'Default' })}
+                className="w-full bg-gradient-to-r from-purple-700 to-purple-600 hover:brightness-110 active:scale-[0.98] text-white rounded-xl py-3 text-xs font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 shadow-lg"
               >
-                {cat}
+                <Filter size={13} /> Filter
               </button>
-            ))}
+            </div>
+
           </div>
         </div>
 
-        {/* Premium Filter Bar */}
-        <div className="mb-16 md:mb-20 p-4 md:p-6 rounded-3xl md:rounded-[2.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl shadow-[0_30px_70px_rgba(0,0,0,0.6)] relative group">
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 rounded-[2.5rem]" />
-          
-          <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
-            <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20"><Search size={14} /></div>
-              <input type="text" name="startsWith" placeholder="Prefix..." value={filters.startsWith} onChange={handleFilterChange}
-                className="w-full bg-white/5 border border-white/5 rounded-2xl pl-10 pr-4 py-4 md:py-5 text-[10px] text-white focus:bg-white/10 outline-none transition-all placeholder:text-white/10 font-light tracking-widest" />
-            </div>
-            <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20"><Search size={14} /></div>
-              <input type="text" name="endsWith" placeholder="Suffix..." value={filters.endsWith} onChange={handleFilterChange}
-                className="w-full bg-white/5 border border-white/5 rounded-2xl pl-10 pr-4 py-4 md:py-5 text-[10px] text-white focus:bg-white/10 outline-none transition-all placeholder:text-white/10 font-light tracking-widest" />
-            </div>
-            <div className="relative">
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20"><Search size={14} /></div>
-              <input type="text" name="includes" placeholder="Contains..." value={filters.includes} onChange={handleFilterChange}
-                className="w-full bg-white/5 border border-white/5 rounded-2xl pl-10 pr-4 py-4 md:py-5 text-[10px] text-white focus:bg-white/10 outline-none transition-all placeholder:text-white/10 font-light tracking-widest" />
-            </div>
-            <select name="vibration" value={filters.vibration} onChange={handleFilterChange}
-              className="w-full bg-white/5 border border-white/5 rounded-2xl px-5 py-4 md:py-5 text-[10px] text-white focus:bg-white/10 outline-none transition-all font-light tracking-widest appearance-none">
-              <option className="bg-[#050614]">Vibration</option>
-              <option className="bg-[#050614]">Triple</option>
-              <option className="bg-[#050614]">Double</option>
-              <option className="bg-[#050614]">Quad</option>
-              <option className="bg-[#050614]">Sequence</option>
-            </select>
-            <select name="sortBy" value={filters.sortBy} onChange={handleFilterChange}
-              className="w-full bg-white/5 border border-white/5 rounded-2xl px-5 py-4 md:py-5 text-[10px] text-white focus:bg-white/10 outline-none transition-all font-light tracking-widest appearance-none">
-              <option className="bg-[#050614]">Sorting</option>
-              <option className="bg-[#050614]">Price: Low to High</option>
-              <option className="bg-[#050614]">Price: High to Low</option>
-            </select>
-            <button onClick={() => setFilters({ startsWith: '', endsWith: '', includes: '', vibration: 'All Frequencies', sortBy: 'Default' })}
-              className="w-full bg-white text-dark rounded-2xl px-5 py-4 md:py-5 text-[9px] font-bold uppercase tracking-[0.3em] transition-all duration-700 hover:bg-secondary flex items-center justify-center gap-2 shadow-2xl">
-              <Filter size={14} strokeWidth={1} /> Reset
-            </button>
-          </div>
-        </div>
-
-        {/* Grid Display */}
+        {/* ROW 3: DATABOUND PRODUCT GRID */}
         {loading ? (
-          <div className="py-32 flex flex-col items-center gap-6">
-            <Loader2 size={42} className="animate-spin text-secondary/30" strokeWidth={1} />
-            <p className="text-white/10 font-light tracking-[0.5em] uppercase text-[10px]">Accessing Database</p>
+          <div className="py-24 flex flex-col items-center gap-4">
+            <Loader2 size={36} className="animate-spin text-purple-500" />
+            <p className="text-gray-500 text-xs tracking-widest uppercase">Loading Database Selections</p>
           </div>
         ) : (
           <>
-            <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
-              <AnimatePresence mode="popLayout">
-                {filteredNumbers.map((item) => (
-                  <NumberCard key={item.id} item={item} />
-                ))}
-              </AnimatePresence>
-            </motion.div>
-
-            {filteredNumbers.length === 0 && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="py-32 text-center"
+            <div className="relative group">
+              {/* Desktop Slider Controls */}
+              <button 
+                onClick={() => scroll('left')}
+                className="hidden lg:flex absolute top-1/2 -left-4 -translate-y-1/2 w-10 h-10 items-center justify-center rounded-full border border-gray-800 bg-[#0A0A12] text-gray-400 cursor-pointer hover:text-white transition-all z-20 shadow-2xl"
               >
-                <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center text-white/10 mx-auto mb-6 border border-white/5">
-                  <Smartphone size={32} />
+                <ChevronLeft size={20} />
+              </button>
+              <button 
+                onClick={() => scroll('right')}
+                className="hidden lg:flex absolute top-1/2 -right-4 -translate-y-1/2 w-10 h-10 items-center justify-center rounded-full border border-[#D4AF37]/60 bg-[#0A0A12] text-[#D4AF37] cursor-pointer hover:brightness-110 transition-all z-20 shadow-2xl"
+              >
+                <ChevronRight size={20} />
+              </button>
+
+              <div 
+                ref={scrollRef}
+                className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide pb-4 px-1"
+              >
+                <AnimatePresence mode="popLayout">
+                  {filteredNumbers.map((item) => (
+                    <div 
+                      key={item.id} 
+                      className="min-w-[calc(50%-8px)] lg:min-w-[calc(20%-13px)] snap-start shrink-0"
+                    >
+                      <NumberCard item={item} />
+                    </div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Empty State */}
+            {filteredNumbers.length === 0 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-20 text-center">
+                <div className="w-16 h-16 rounded-full bg-gray-900 flex items-center justify-center text-gray-600 mx-auto mb-4">
+                  <Smartphone size={24} />
                 </div>
-                <h3 className="text-xl font-light text-white/40 tracking-[0.4em] uppercase mb-10">No Frequencies Found</h3>
-                <button 
-                  onClick={() => { setFilters({ startsWith: '', endsWith: '', includes: '', vibration: 'All Frequencies', sortBy: 'Default' }); setActiveCategory('All Numbers'); }}
-                  className="text-secondary text-[10px] uppercase tracking-[0.5em] border-b border-secondary/30 pb-2 hover:text-white transition-all"
+                <h3 className="text-base font-medium text-gray-300 tracking-wider mb-4">No matching configuration found</h3>
+                <button
+                  onClick={() => setFilters({ startsWith: '', endsWith: '', includes: '', vibration: 'All Frequencies', sortBy: 'Default' })}
+                  className="text-xs text-purple-400 border-b border-purple-900/60 pb-1 hover:text-purple-300 transition-colors"
                 >
-                  Clear System Parameters
+                  Clear filter configurations
                 </button>
               </motion.div>
             )}
           </>
         )}
-        
-        {/* Footer Link */}
-        <div className="mt-20 flex justify-center">
-          <Link to="/shop" className="group flex items-center gap-4 text-white/30 hover:text-white transition-all duration-500">
-            <div className="h-[1px] w-12 bg-white/10 group-hover:w-20 transition-all duration-700" />
-            <span className="text-[10px] uppercase tracking-[0.5em] font-light">Explore Full Archive</span>
-            <div className="h-[1px] w-12 bg-white/10 group-hover:w-20 transition-all duration-700" />
-          </Link>
-        </div>
+
       </div>
     </section>
   );

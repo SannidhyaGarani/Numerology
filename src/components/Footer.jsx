@@ -1,7 +1,6 @@
 import React from 'react';
-import { Instagram, Twitter, Facebook, Youtube, Mail, MapPin, Phone, ArrowRight, Sparkles, Smartphone, ShieldCheck, Zap } from 'lucide-react';
+import { Instagram, Twitter, Facebook, Youtube, Mail, Phone, Sparkles, ShieldCheck, Zap, Smartphone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -28,133 +27,145 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#050614] text-white pt-32 pb-12 overflow-hidden relative border-t border-white/5">
-      {/* Premium Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[140px] -translate-y-1/2" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[140px] translate-y-1/2" />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/sacred-geometry.png')] opacity-[0.015]" />
-      </div>
-      
-      <div className="max-w-[1440px] mx-auto px-8 relative z-10">
-        {/* Newsletter / CTA Section */}
-        <div className="mb-24 p-12 rounded-[3rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl relative overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-tr from-secondary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-          <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-[10px] font-medium uppercase tracking-[0.3em]">
-                <Sparkles size={12} />
-                Stay in Sync
+    <footer className="bg-[#03030A] text-white pt-24 pb-12 overflow-hidden relative border-t border-gray-900 select-none">
+      {/* Background Sacred Geometric Texture Layer */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/sacred-geometry.png')` }} />
+      <div className="absolute bottom-0 left-1/3 w-[500px] h-[300px] bg-purple-950/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-[1440px] mx-auto px-6 relative z-10 w-full">
+        
+        {/* REDESIGNED PREMIUM NEWSLETTER BANNER */}
+        <div className="mb-20 p-8 md:p-12 rounded-2xl border border-purple-900/30 bg-[#0B061A]/80 backdrop-blur-md shadow-xl relative overflow-hidden">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div className="lg:col-span-7 space-y-3">
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-purple-950/50 text-purple-300 border border-purple-900/50">
+                <Sparkles size={10} className="text-[#F4C95D]" />
+                Stay In Sync
               </div>
-              <h3 className="text-3xl md:text-4xl font-light font-display tracking-tight leading-tight">
-                Get notified when <br />
-                <span className="text-gradient-gold">New Frequencies</span> arrive.
+              <h3 className="text-2xl md:text-3xl font-medium tracking-normal text-white">
+                Get notified when <span className="text-[#F4C95D] italic">New Frequencies</span> arrive.
               </h3>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <input 
-                type="email" 
-                placeholder="Secure Email Address" 
-                className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-sm font-light tracking-wider outline-none focus:bg-white/10 focus:border-secondary/30 transition-all placeholder:text-white/20"
-              />
-              <button className="bg-white text-dark px-10 py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-500 hover:bg-secondary hover:text-dark shadow-2xl hover:shadow-secondary/20">
-                Join Inner Circle
-              </button>
+
+            <div className="lg:col-span-5 w-full">
+              <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-2.5 w-full">
+                <input
+                  type="email"
+                  placeholder="Enter secure email address"
+                  className="w-full bg-[#120C24] border border-gray-800 rounded-xl px-4 py-3 text-sm text-white focus:border-purple-500 outline-none transition-colors placeholder:text-gray-500 font-medium"
+                />
+                <button 
+                  type="submit" 
+                  className="bg-[#6B2DFF] hover:bg-purple-700 active:scale-[0.99] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap"
+                >
+                  Join Inner Circle
+                </button>
+              </form>
             </div>
+
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-24">
-          {/* Brand & Mission */}
-          <div className="lg:col-span-4 space-y-10">
-            <Link to="/" className="flex items-center gap-4 group">
-              <div className="relative w-12 h-12 flex items-center justify-center bg-gradient-to-tr from-primary to-accent rounded-2xl transform transition-all duration-700 group-hover:rotate-[360deg] shadow-lg shadow-primary/20">
-                <span className="text-white font-black text-2xl">N</span>
+        {/* MAIN NAVIGATION LINKS TRACK */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+          
+          {/* Brand Presentation Metadata */}
+          <div className="lg:col-span-4 space-y-6">
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="relative w-10 h-10 flex items-center justify-center bg-[#120C24] border border-purple-900/60 rounded-xl transition-colors group-hover:border-purple-500">
+                <span className="text-[#F4C95D] font-bold text-xl font-mono">V</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-white tracking-tighter uppercase leading-none">VIP<span className="text-secondary font-light">NUMBERS</span></span>
-                <span className="text-[10px] font-medium text-white/30 uppercase tracking-[0.4em] mt-1">Celestial Artifacts</span>
+                <span className="text-lg font-bold text-white tracking-wide uppercase leading-none">
+                  VIP<span className="text-[#F4C95D] font-normal lowercase italic">numbers</span>
+                </span>
+                <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest mt-1">Celestial Assets</span>
               </div>
             </Link>
-            
-            <p className="text-base text-white/40 leading-relaxed font-light tracking-wide max-w-sm">
-              Curating the most prestigious digital identity assets. We bridge the gap between numerical frequency and personal destiny through elite VIP mobile numbers.
+
+            <p className="text-sm text-gray-400 leading-relaxed font-normal max-w-xs">
+              Curating prestigious digital identity configurations. We bridge numerical precision with personal legacy.
             </p>
 
-            <div className="flex items-center gap-4">
+            {/* Social Channels Container */}
+            <div className="flex items-center gap-2.5">
               {[Instagram, Twitter, Facebook, Youtube].map((Icon, i) => (
-                <a 
-                  key={i} 
-                  href="#" 
-                  className="w-12 h-12 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center hover:bg-secondary hover:border-secondary transition-all duration-500 group relative overflow-hidden"
+                <a
+                  key={i}
+                  href="#"
+                  className="w-9 h-9 rounded-xl border border-gray-800 bg-[#0B061A] flex items-center justify-center hover:border-purple-500 hover:text-[#F4C95D] text-gray-400 transition-colors"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Icon size={20} className="text-white/40 group-hover:text-dark transition-all duration-500 relative z-10" />
+                  <Icon size={16} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-12 pr-12">
-             {Object.entries(footerLinks).map(([title, links]) => (
-               <div key={title} className="space-y-8">
-                 <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.5em] relative inline-block">
-                   {title}
-                   <div className="absolute -bottom-2 left-0 w-8 h-[1px] bg-secondary/50" />
-                 </h4>
-                 <ul className="space-y-4">
-                   {links.map((link) => (
-                     <li key={link.name}>
-                       <Link to={link.path} className="text-white/30 hover:text-white transition-all duration-500 text-[13px] font-light tracking-wider flex items-center gap-3 group">
-                         <div className="w-1.5 h-[1px] bg-secondary/30 group-hover:w-4 transition-all duration-500" />
-                         {link.name}
-                       </Link>
-                     </li>
-                   ))}
-                 </ul>
-               </div>
-             ))}
+          {/* Explicit Linked Grid Blocks */}
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+            {Object.entries(footerLinks).map(([title, links]) => (
+              <div key={title} className="space-y-4">
+                <h4 className="text-xs font-bold text-[#F4C95D] uppercase tracking-wider">
+                  {title}
+                </h4>
+                <ul className="space-y-2.5">
+                  {links.map((link) => (
+                    <li key={link.name}>
+                      <Link 
+                        to={link.path} 
+                        className="text-gray-400 hover:text-white transition-colors text-sm font-normal tracking-wide block"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        {/* CONTACT ROW DATA PANEL */}
+        <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 py-5 border-y border-gray-900 mb-10 text-gray-400 text-xs font-medium">
+          <div className="flex items-center gap-2 hover:text-white transition-colors">
+            <Mail size={14} className="text-[#F4C95D] opacity-80" />
+            <span className="tracking-wide">concierge@vipnumbers.com</span>
+          </div>
+          <div className="flex items-center gap-2 hover:text-white transition-colors">
+            <Phone size={14} className="text-[#F4C95D] opacity-80" />
+            <span className="tracking-wide">+91 98765 43210</span>
           </div>
         </div>
 
-        {/* Contact Info Strip */}
-        <div className="flex flex-wrap justify-center gap-12 py-8 border-y border-white/5 mb-12">
-          <div className="flex items-center gap-3 text-white/30 hover:text-white transition-colors duration-500 group">
-            <Mail size={14} strokeWidth={1} />
-            <span className="text-[10px] font-light uppercase tracking-[0.2em]">concierge@vipnumbers.com</span>
-          </div>
-          <div className="flex items-center gap-3 text-white/30 hover:text-white transition-colors duration-500 group">
-            <Phone size={14} strokeWidth={1} />
-            <span className="text-[10px] font-light uppercase tracking-[0.2em]">+91 98765 43210</span>
-          </div>
-        </div>
-
-        {/* Core Trust Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-12 mb-12 opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-1000">
-          <div className="flex items-center gap-3 text-[9px] uppercase tracking-[0.3em] font-light">
-            <ShieldCheck size={14} className="text-secondary" />
+        {/* TRUST ACCREDITATION ICONS */}
+        <div className="flex flex-wrap items-center justify-center gap-8 mb-10 text-[10px] font-bold tracking-wider text-gray-500">
+          <div className="flex items-center gap-2">
+            <ShieldCheck size={14} className="text-purple-500/70" />
             SECURE ACQUISITION
           </div>
-          <div className="flex items-center gap-3 text-[9px] uppercase tracking-[0.3em] font-light">
-            <Zap size={14} className="text-secondary" />
+          <div className="flex items-center gap-2">
+            <Zap size={14} className="text-purple-500/70" />
             INSTANT SYNC
           </div>
-          <div className="flex items-center gap-3 text-[9px] uppercase tracking-[0.3em] font-light">
-            <Smartphone size={14} className="text-secondary" />
+          <div className="flex items-center gap-2">
+            <Smartphone size={14} className="text-purple-500/70" />
             ELITE NETWORK
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] font-medium uppercase tracking-[0.3em] text-white/20">
+        {/* BASE COPYRIGHT INFO PANEL */}
+        <div className="pt-2 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold tracking-wider text-gray-600 uppercase">
           <p>© {currentYear} VIP NUMBERS. ALL RIGHTS RESERVED.</p>
-          <div className="flex gap-8">
-            <a href="#" className="hover:text-white transition-all duration-500">Privacy</a>
-            <a href="#" className="hover:text-white transition-all duration-500">Terms</a>
-            <a href="#" className="hover:text-white transition-all duration-500">Compliance</a>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-gray-400 transition-colors">Privacy</a>
+            <a href="#" className="hover:text-gray-400 transition-colors">Terms</a>
+            <a href="#" className="hover:text-gray-400 transition-colors">Compliance</a>
           </div>
         </div>
+
       </div>
     </footer>
   );
